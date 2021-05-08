@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'hospede.dart';
 import 'imovel.dart';
 
@@ -8,7 +6,7 @@ class Aluguel {
   Hospede _hospede;
   DateTime _checkin, _checkout;
   int _totalHospedes;
-  Float _valor;
+  double _valor;
   String _forma;
   String _observacao;
   bool _roupaDeCama;
@@ -33,7 +31,7 @@ class Aluguel {
     return this._totalHospedes;
   }
 
-  Float get valor {
+  double get valor {
     return this._valor;
   }
 
@@ -69,7 +67,7 @@ class Aluguel {
     this._totalHospedes = totalHospedes;
   }
 
-  set valor(Float valor) {
+  set valor(double valor) {
     this._valor = valor;
   }
 

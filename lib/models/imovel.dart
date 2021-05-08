@@ -1,11 +1,9 @@
-import 'dart:ffi';
-
 class Imovel {
   String _local;
   int _maxHospedes;
-  Float _tarifaPadrao;
-  Float _descontoSemana;
-  Float _descontoMes;
+  double _tarifaPadrao;
+  double _descontoSemana;
+  double _descontoMes;
 
   String get local {
     return this._local;
@@ -15,15 +13,15 @@ class Imovel {
     return this._maxHospedes;
   }
 
-  Float get tarifaPadrao{
+  double get tarifaPadrao{
     return this._tarifaPadrao;
   }
 
-  Float get descontoSemana{
+  double get descontoSemana{
     return this._descontoSemana;
   }
 
-  Float get descontoMes{
+  double get descontoMes{
     return this._descontoMes;
   }
 
@@ -35,15 +33,15 @@ class Imovel {
     this._maxHospedes = maxHospedes;
   }
 
-  set tarifaPadrao(Float tarifaPadrao){
+  set tarifaPadrao(double tarifaPadrao){
     this._tarifaPadrao = tarifaPadrao;
   }
 
-  set descontoSemana(Float descontoSemana){
+  set descontoSemana(double descontoSemana){
     this._descontoSemana = descontoSemana;
   }
 
-  set descontoMes(Float descontoMes){
+  set descontoMes(double descontoMes){
     this._descontoMes = descontoMes;
   }
 }

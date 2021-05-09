@@ -1,3 +1,4 @@
+import 'package:aluguel/util/validations.dart';
 import 'package:flutter/material.dart';
 
 class InputField extends StatelessWidget {
@@ -9,7 +10,7 @@ class InputField extends StatelessWidget {
   final TextInputType keyboardType;
   final TextCapitalization capitalization;
   final TextEditingController controller;
-  final Function validation;
+  final List<Function> validations;
 
   const InputField({
     Key key,
@@ -21,7 +22,7 @@ class InputField extends StatelessWidget {
     this.keyboardType,
     this.capitalization,
     this.controller,
-    this.validation,
+    this.validations,
   }) : super(key: key);
 
   @override
@@ -41,8 +42,26 @@ class InputField extends StatelessWidget {
             ? capitalization
             : TextCapitalization.sentences,
         controller: controller,
-        validator: validation,
+        validator: _validator,
       ),
     );
+  }
+
+  String _validator(String value) {
+    if (validations == null) return null;
+
+    var required = validations.firstWhere(
+        (element) => element == Validations.nonEmpty,
+        orElse: () => null);
+    // Se for não required e estiver vazio, não testa as outras
+    if (required == null && Validations.nonEmpty(value) != null) return null;
+
+    String msg;
+    for (Function validation in validations) {
+      msg = validation(value);
+      if (msg != null) return msg;
+    }
+
+    return null;
   }
 }

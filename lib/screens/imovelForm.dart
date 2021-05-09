@@ -37,50 +37,68 @@ class _ImovelFormState extends State<ImovelForm> {
                   hint: "Local",
                   icon: Icons.place,
                   controller: localCtrl,
-                  validation: nonEmptyValidation,
+                  validations: [
+                    Validations.nonEmpty,
+                  ],
                 ),
                 Row(
                   children: [
                     Expanded(
-                        child: InputField(
-                      label: "Hóspedes",
-                      icon: Icons.account_circle,
-                      keyboardType: TextInputType.number,
-                      controller: hospedesCtrl,
-                      validation: nonNegativeIntValidation,
-                    )),
+                      child: InputField(
+                        label: "Hóspedes",
+                        icon: Icons.account_circle,
+                        keyboardType: TextInputType.number,
+                        controller: hospedesCtrl,
+                        validations: [
+                          Validations.nonEmpty,
+                          Validations.nonNegativeInt,
+                        ],
+                      ),
+                    ),
                     Expanded(
-                        child: InputField(
-                      label: "Tarifa",
-                      icon: Icons.attach_money,
-                      prefix: "R\$ ",
-                      keyboardType: TextInputType.number,
-                      controller: tarifaCtrl,
-                      validation: nonNegativeDoubleValidation,
-                    )),
+                      child: InputField(
+                        label: "Tarifa",
+                        icon: Icons.attach_money,
+                        prefix: "R\$ ",
+                        keyboardType: TextInputType.number,
+                        controller: tarifaCtrl,
+                        validations: [
+                          Validations.nonEmpty,
+                          Validations.nonNegativeDouble,
+                        ],
+                      ),
+                    ),
                   ],
                 ),
                 Text("Descontos"),
                 Row(
                   children: [
                     Expanded(
-                        child: InputField(
-                      label: "Semana",
-                      icon: Icons.calendar_today_outlined,
-                      suffix: "%",
-                      keyboardType: TextInputType.number,
-                      controller: semanaCtrl,
-                      validation: percentValidation,
-                    )),
+                      child: InputField(
+                        label: "Semana",
+                        icon: Icons.calendar_today_outlined,
+                        suffix: "%",
+                        keyboardType: TextInputType.number,
+                        controller: semanaCtrl,
+                        validations: [
+                          Validations.nonEmpty,
+                          Validations.percent0To100,
+                        ],
+                      ),
+                    ),
                     Expanded(
-                        child: InputField(
-                      label: "Mês",
-                      icon: Icons.calendar_today,
-                      suffix: "%",
-                      keyboardType: TextInputType.number,
-                      controller: mesCtrl,
-                      validation: percentValidation,
-                    )),
+                      child: InputField(
+                        label: "Mês",
+                        icon: Icons.calendar_today,
+                        suffix: "%",
+                        keyboardType: TextInputType.number,
+                        controller: mesCtrl,
+                        validations: [
+                          Validations.nonEmpty,
+                          Validations.percent0To100,
+                        ],
+                      ),
+                    ),
                   ],
                 ),
                 ElevatedButton(
@@ -105,8 +123,8 @@ class _ImovelFormState extends State<ImovelForm> {
       imovel.descontoMes = double.parse(mesCtrl.text);
       print(imovel.local);
 
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Novo imóvel em ' + imovel.local + '.')));
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Novo imóvel em ' + imovel.local + '.')));
     }
     return null;
   }

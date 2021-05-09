@@ -5,6 +5,12 @@ class Despesa {
   double _valor;
   Imovel _imovel;
 
+  Despesa(
+    this._servico,
+    this._valor,
+    this._imovel,
+  );
+
   String get servico {
     return this._servico;
   }
@@ -27,5 +33,14 @@ class Despesa {
 
   set imovel(Imovel imovel) {
     this._imovel = imovel;
+  }
+
+  @override
+  String toString() {
+    var imovel = _imovel.local;
+    return "Despesa: { "
+        "Servico: $_servico  |  "
+        "Imóvel: $imovel  |  "
+        "Valor: $_valor }";
   }
 }

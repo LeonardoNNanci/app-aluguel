@@ -4,6 +4,13 @@ class Hospede {
   String _endereco;
   String _cpf;
 
+  Hospede(
+    this._nome,
+    this._email,
+    this._endereco,
+    this._cpf,
+  );
+
   String get nome {
     return this._nome;
   }
@@ -34,5 +41,11 @@ class Hospede {
 
   set cpf(String cpf) {
     this._cpf = cpf;
+  }
+
+  @override
+  String toString() {
+    return "Hóspede: { "
+      "Nome : $_nome }";
   }
 }

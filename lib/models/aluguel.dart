@@ -11,6 +11,18 @@ class Aluguel {
   String _observacao;
   bool _roupaDeCama;
 
+  Aluguel(
+    this._imovel,
+    this._hospede,
+    this._checkin,
+    this._checkout,
+    this._totalHospedes,
+    this._valor,
+    this._forma,
+    this._roupaDeCama,
+    this._observacao,
+  );
+
   Imovel get imovel {
     return this._imovel;
   }
@@ -81,5 +93,18 @@ class Aluguel {
 
   set roupaDeCama(bool roupaDeCama) {
     this._roupaDeCama = roupaDeCama;
+  }
+
+  @override
+  String toString() {
+    var localImovel = _imovel.local;
+    var hospede = _hospede.nome;
+    return "Aluguel: { "
+        "Local: $localImovel  |  "
+        "Hóspede: $hospede  |  "
+        "Checkin: $_checkin  |  "
+        "Checkout: $_checkout  |  "
+        "Total de hóspedes: $_totalHospedes  |  "
+        "Valor: $_valor }";
   }
 }

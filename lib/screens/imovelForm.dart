@@ -115,13 +115,19 @@ class _ImovelFormState extends State<ImovelForm> {
 
   Imovel cadastrarImovel() {
     if (_formKey.currentState.validate()) {
-      var imovel = Imovel();
-      imovel.local = localCtrl.text;
-      imovel.maxHospedes = int.parse(hospedesCtrl.text);
-      imovel.tarifaPadrao = double.parse(tarifaCtrl.text);
-      imovel.descontoSemana = double.parse(semanaCtrl.text);
-      imovel.descontoMes = double.parse(mesCtrl.text);
-      print(imovel.local);
+      var local = localCtrl.text;
+      var maxHospedes = int.parse(hospedesCtrl.text);
+      var tarifaPadrao = double.parse(tarifaCtrl.text);
+      var descontoSemana = double.parse(semanaCtrl.text);
+      var descontoMes = double.parse(mesCtrl.text);
+      var imovel = Imovel(
+        local,
+        maxHospedes,
+        tarifaPadrao,
+        descontoSemana,
+        descontoMes,
+      );
+      print(imovel);
 
       ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Novo imóvel em ' + imovel.local + '.')));

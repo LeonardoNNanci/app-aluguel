@@ -1,27 +1,14 @@
 import 'package:aluguel/models/imovel.dart';
-import 'package:aluguel/util/validations.dart';
 import 'package:aluguel/widgets/inputField.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 
-class ImovelForm extends StatefulWidget {
-  const ImovelForm({Key key}) : super(key: key);
-
-  @override
-  _ImovelFormState createState() => _ImovelFormState();
-}
-
-class _ImovelFormState extends State<ImovelForm> {
-  final _formKey = GlobalKey<FormState>();
-
-  var localCtrl = TextEditingController();
-  var hospedesCtrl = TextEditingController();
-  var tarifaCtrl = TextEditingController();
-  var semanaCtrl = TextEditingController();
-  var mesCtrl = TextEditingController();
+class ImovelForm extends StatelessWidget {
+  final _formKey = GlobalKey<FormBuilderState>();
 
   @override
   Widget build(BuildContext context) {
-    return Form(
+    return FormBuilder(
       key: _formKey,
       child: Scaffold(
         appBar: AppBar(
@@ -32,39 +19,40 @@ class _ImovelFormState extends State<ImovelForm> {
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
-                InputField(
+                KeyboardInputField(
+                  "local",
                   label: "Local",
-                  hint: "Local",
                   icon: Icons.place,
-                  controller: localCtrl,
                   validations: [
-                    Validations.nonEmpty,
+                    FormBuilderValidators.required(context),
                   ],
                 ),
                 Row(
                   children: [
                     Expanded(
-                      child: InputField(
+                      child: KeyboardInputField(
+                        "hospedes",
                         label: "Hóspedes",
                         icon: Icons.account_circle,
                         keyboardType: TextInputType.number,
-                        controller: hospedesCtrl,
                         validations: [
-                          Validations.nonEmpty,
-                          Validations.nonNegativeInt,
+                          FormBuilderValidators.required(context),
+                          FormBuilderValidators.integer(context),
+                          FormBuilderValidators.min(context, 1),
                         ],
                       ),
                     ),
                     Expanded(
-                      child: InputField(
+                      child: KeyboardInputField(
+                        "tarifa",
                         label: "Tarifa",
                         icon: Icons.attach_money,
                         prefix: "R\$ ",
                         keyboardType: TextInputType.number,
-                        controller: tarifaCtrl,
                         validations: [
-                          Validations.nonEmpty,
-                          Validations.nonNegativeDouble,
+                          FormBuilderValidators.required(context),
+                          FormBuilderValidators.numeric(context),
+                          FormBuilderValidators.min(context, 0),
                         ],
                       ),
                     ),
@@ -74,28 +62,32 @@ class _ImovelFormState extends State<ImovelForm> {
                 Row(
                   children: [
                     Expanded(
-                      child: InputField(
+                      child: KeyboardInputField(
+                        "semana",
                         label: "Semana",
                         icon: Icons.calendar_today_outlined,
                         suffix: "%",
                         keyboardType: TextInputType.number,
-                        controller: semanaCtrl,
                         validations: [
-                          Validations.nonEmpty,
-                          Validations.percent0To100,
+                          FormBuilderValidators.required(context),
+                          FormBuilderValidators.numeric(context),
+                          FormBuilderValidators.min(context, 0),
+                          FormBuilderValidators.max(context, 100),
                         ],
                       ),
                     ),
                     Expanded(
-                      child: InputField(
+                      child: KeyboardInputField(
+                        "mes",
                         label: "Mês",
                         icon: Icons.calendar_today,
                         suffix: "%",
                         keyboardType: TextInputType.number,
-                        controller: mesCtrl,
                         validations: [
-                          Validations.nonEmpty,
-                          Validations.percent0To100,
+                          FormBuilderValidators.required(context),
+                          FormBuilderValidators.numeric(context),
+                          FormBuilderValidators.min(context, 0),
+                          FormBuilderValidators.max(context, 100),
                         ],
                       ),
                     ),
@@ -115,22 +107,8 @@ class _ImovelFormState extends State<ImovelForm> {
 
   Imovel cadastrarImovel() {
     if (_formKey.currentState.validate()) {
-      var local = localCtrl.text;
-      var maxHospedes = int.parse(hospedesCtrl.text);
-      var tarifaPadrao = double.parse(tarifaCtrl.text);
-      var descontoSemana = double.parse(semanaCtrl.text);
-      var descontoMes = double.parse(mesCtrl.text);
-      var imovel = Imovel(
-        local,
-        maxHospedes,
-        tarifaPadrao,
-        descontoSemana,
-        descontoMes,
-      );
-      print(imovel);
-
-      ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Novo imóvel em ' + imovel.local + '.')));
+      _formKey.currentState.save();
+      print(_formKey.currentState.value);
     }
     return null;
   }

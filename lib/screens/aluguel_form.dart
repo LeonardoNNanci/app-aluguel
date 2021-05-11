@@ -1,7 +1,7 @@
 import 'package:aluguel/models/aluguel.dart';
 import 'package:aluguel/models/hospede.dart';
 import 'package:aluguel/models/imovel.dart';
-import 'package:aluguel/widgets/inputField.dart';
+import 'package:aluguel/widgets/keyboard_input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:intl/intl.dart' as intl;

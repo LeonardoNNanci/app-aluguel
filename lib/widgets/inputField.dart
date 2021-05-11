@@ -38,7 +38,9 @@ class KeyboardInputField extends StatelessWidget {
           prefixText: prefix,
           suffixText: suffix,
         ),
-        validator: FormBuilderValidators.compose(validations),
+        validator: validations != null
+            ? FormBuilderValidators.compose(validations)
+            : null,
         keyboardType: keyboardType,
         textCapitalization: capitalization != null
             ? capitalization

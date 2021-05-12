@@ -1,4 +1,6 @@
-class Hospede {
+import 'package:aluguel/models/database_model.dart';
+
+class Hospede extends DatabaseModel {
   String _nome;
   String _email;
   String _endereco;
@@ -8,8 +10,16 @@ class Hospede {
     this._nome,
     this._email,
     this._endereco,
-    this._cpf,
-  );
+    this._cpf, {
+    id,
+  }) : super(id);
+
+  Hospede.fromMap(Map<String, dynamic> map) : super.fromMap(map) {
+    this._nome = map["nome"];
+    this._email = map["email"];
+    this._endereco = map["endereco"];
+    this._cpf = map["cpf"];
+  }
 
   String get nome {
     return this._nome;
@@ -44,8 +54,22 @@ class Hospede {
   }
 
   @override
+  Map<String, dynamic> toMap() {
+    final Map<String, dynamic> map = Map();
+
+    if (this.id != null) map["id"] = this.id;
+
+    map["nome"] = this._nome;
+    map["email"] = this._email;
+    map["endereco"] = this._endereco;
+    map["cpf"] = this._cpf;
+
+    return map;
+  }
+
+  @override
   String toString() {
     return "Hóspede: { "
-      "Nome : $_nome }";
+        "Nome : $_nome }";
   }
 }

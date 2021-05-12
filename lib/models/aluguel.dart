@@ -1,7 +1,9 @@
+import 'package:aluguel/models/database_model.dart';
+
 import 'hospede.dart';
 import 'imovel.dart';
 
-class Aluguel {
+class Aluguel extends DatabaseModel {
   Imovel _imovel;
   Hospede _hospede;
   DateTime _checkin, _checkout;
@@ -12,16 +14,29 @@ class Aluguel {
   bool _roupaDeCama;
 
   Aluguel(
-    this._imovel,
-    this._hospede,
-    this._checkin,
-    this._checkout,
-    this._totalHospedes,
-    this._valor,
-    this._forma,
-    this._roupaDeCama,
-    this._observacao,
-  );
+      this._imovel,
+      this._hospede,
+      this._checkin,
+      this._checkout,
+      this._totalHospedes,
+      this._valor,
+      this._forma,
+      this._roupaDeCama,
+      this._observacao,
+      {id})
+      : super(id);
+
+  Aluguel.fromMap(Map<String, dynamic> map) : super.fromMap(map) {
+    this._imovel = map["imovel"];
+    this._hospede = map["hospede"];
+    this._checkin = map["checkin"];
+    this._checkout = map["checkout"];
+    this._totalHospedes = map["totalHospedes"];
+    this._valor = map["valor"];
+    this._forma = map["forma"];
+    this._roupaDeCama = map["roupaDeCama"];
+    this._observacao = map["observacao"];
+  }
 
   Imovel get imovel {
     return this._imovel;
@@ -97,8 +112,8 @@ class Aluguel {
 
   @override
   String toString() {
-    var localImovel = _imovel.local;
-    var hospede = _hospede.nome;
+    final localImovel = _imovel.local;
+    final hospede = _hospede.nome;
     return "Aluguel: { "
         "Local: $localImovel  |  "
         "Hóspede: $hospede  |  "
@@ -106,5 +121,24 @@ class Aluguel {
         "Checkout: $_checkout  |  "
         "Total de hóspedes: $_totalHospedes  |  "
         "Valor: $_valor }";
+  }
+
+  @override
+  Map<String, dynamic> toMap() {
+    final Map<String, dynamic> map = Map();
+
+    if (this.id != null) map["id"] = this.id;
+
+    map["imovel"] = this._imovel;
+    map["hospede"] = this._hospede;
+    map["checkin"] = this._checkin;
+    map["checkout"] = this._checkout;
+    map["totalHospedes"] = this._totalHospedes;
+    map["valor"] = this._valor;
+    map["forma"] = this._forma;
+    map["roupaDeCama"] = this._roupaDeCama;
+    map["observacao"] = this._observacao;
+
+    return map;
   }
 }

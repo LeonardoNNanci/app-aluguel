@@ -1,6 +1,7 @@
+import 'package:aluguel/models/database_model.dart';
 import 'package:aluguel/models/imovel.dart';
 
-class Despesa {
+class Despesa extends DatabaseModel {
   String _servico;
   double _valor;
   Imovel _imovel;
@@ -8,8 +9,15 @@ class Despesa {
   Despesa(
     this._servico,
     this._valor,
-    this._imovel,
-  );
+    this._imovel, {
+    id,
+  }) : super(id);
+
+  Despesa.fromMap(Map<String, dynamic> map) : super.fromMap(map) {
+    this._servico = map["servico"];
+    this._valor = map["valor"];
+    this._imovel = map["imovel_id"];
+  }
 
   String get servico {
     return this._servico;
@@ -42,5 +50,18 @@ class Despesa {
         "Servico: $_servico  |  "
         "Imóvel: $imovel  |  "
         "Valor: $_valor }";
+  }
+
+  @override
+  Map<String, dynamic> toMap() {
+    final Map<String, dynamic> map = Map();
+
+    if (this.id != null) map["id"] = this.id;
+
+    map["servico"] = this._servico;
+    map["valor"] = this._valor;
+    map["imovel_id"] = this._imovel;
+
+    return map;
   }
 }

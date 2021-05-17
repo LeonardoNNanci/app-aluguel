@@ -1,5 +1,5 @@
 import 'dart:io';
-import "package:csv/csv.dart";
+import 'dart:convert';
 import 'package:path_provider/path_provider.dart';
 
 class CsvFile {
@@ -14,29 +14,27 @@ class CsvFile {
 
   Future<File> get _localFile async {
     final path = await _localPath;
-    print("$path/$filename");
     return File("$path/$filename");
   }
 
-  Future<File> writeData(List data) async {
+  Future<File> writeData(dynamic data) async {
     final file = await _localFile;
 
-    String csvString = const ListToCsvConverter().convert(data);
+    String jsonString = const JsonEncoder().convert(data);
 
-    print(csvString);
-
-    return file.writeAsString(csvString);
+    return file.writeAsString(jsonString);
   }
 
-  Future<List> readData() async {
+  Future<dynamic> readData() async {
     try {
       final file = await _localFile;
-      final csvString = await file.readAsString();
+      final jsonString = await file.readAsString();
 
-      final data = const CsvToListConverter().convert(csvString);
+      final data = const JsonDecoder().convert(jsonString);
 
       return data;
     } on Error {
+      print("ERROR!");
       return [];
     }
   }

@@ -56,14 +56,13 @@ class _TodoListState extends State<TodoList> {
 
       case ConnectionState.done:
         if (snapshot.data.length == 0)
-          return ErrorFeedback();
-          // return FeedbackInfo(
-          //   child: Icon(
-          //     Icons.warning_amber_rounded,
-          //     size: 96,
-          //   ),
-          //   legend: Text("Ainda não há anotações por aqui..."),
-          // );
+          return FeedbackInfo(
+            child: Icon(
+              Icons.warning_amber_rounded,
+              size: 96,
+            ),
+            legend: Text("Ainda não há anotações por aqui..."),
+          );
         tasks = snapshot.data;
         return _showTasks();
         break;

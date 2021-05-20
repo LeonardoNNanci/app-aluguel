@@ -100,8 +100,7 @@ class _TaskListState extends State<TaskList> {
       itemBuilder: (context, index) {
         return TaskCard(
             key: ObjectKey(tasks[index]),
-            checked: tasks[index].checked,
-            description: tasks[index].description,
+            task: tasks[index],
             onCheck: (description, checked, time) {
               setState(() {
                 tasks[index] = Task(description, checked, time);

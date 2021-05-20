@@ -1,20 +1,22 @@
+import 'package:aluguel/models/task.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class TaskCard extends StatefulWidget {
-  final bool checked;
-  final String description;
+  final Task task;
   final Function(String, bool, DateTime) onDelete;
   final Function(String, bool, DateTime) onCheck;
   final Function(String, bool, DateTime) onEdit;
 
-  const TaskCard(
-      {Key key,
-      this.checked,
-      this.description,
-      this.onDelete,
-      this.onCheck,
-      this.onEdit})
-      : super(key: key);
+  final Color checkedColor = Colors.black26;
+
+  const TaskCard({
+    Key key,
+    this.task,
+    this.onDelete,
+    this.onCheck,
+    this.onEdit,
+  }) : super(key: key);
 
   @override
   _TaskCardState createState() => _TaskCardState();
@@ -28,8 +30,9 @@ class _TaskCardState extends State<TaskCard> {
   @override
   void initState() {
     super.initState();
-    description = widget.description;
-    checked = widget.checked;
+    description = widget.task.description;
+    checked = widget.task.checked;
+    checkTime = widget.task.checkTime;
   }
 
   @override
@@ -39,24 +42,39 @@ class _TaskCardState extends State<TaskCard> {
       onChanged: (value) {
         setState(() {
           checked = value;
-          checkTime = DateTime.now();
+          checkTime = DateTime.now().toLocal();
         });
         widget.onCheck(description, checked, checkTime);
       },
       title: Text(
-        widget.description,
+        description,
         style: checked
             ? TextStyle(
-                color: Colors.black12,
+                color: widget.checkedColor,
                 decoration: TextDecoration.lineThrough,
               )
             : null,
       ),
+      subtitle: checked
+          ? Text(_formattedCheckTime(),
+              style: TextStyle(
+                color: widget.checkedColor,
+              ))
+          : null,
       secondary: IconButton(
         icon: Icon(Icons.delete),
         onPressed: () => widget.onDelete(description, checked, checkTime),
       ),
       controlAffinity: ListTileControlAffinity.leading,
     );
+  }
+
+  String _formattedCheckTime() {
+    NumberFormat formatter = NumberFormat("00");
+    return "${formatter.format(checkTime.hour)}:"
+        "${formatter.format(checkTime.minute)} - "
+        "${formatter.format(checkTime.day)}/"
+        "${formatter.format(checkTime.month)}/"
+        "${formatter.format(checkTime.year)}";
   }
 }

@@ -1,7 +1,4 @@
-import 'package:aluguel/models/imovel.dart';
-import 'package:aluguel/screens/todo_list.dart';
-import 'package:aluguel/util/json_io.dart';
-import 'package:aluguel/widgets/feedback_info.dart';
+import 'package:aluguel/screens/todo_list/todo_list.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -16,7 +13,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
       ),
-      home: TodoList(),
+      home: ToDo(),
       debugShowCheckedModeBanner: false,
     );
   }

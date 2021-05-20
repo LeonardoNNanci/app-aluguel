@@ -1,11 +1,12 @@
 import 'dart:io';
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 
-class CsvFile {
+class JsonFile{
   final String filename;
 
-  CsvFile(this.filename);
+  JsonFile(this.filename);
 
   Future<String> get _localPath async {
     final directory = await getApplicationDocumentsDirectory();

@@ -58,6 +58,7 @@ class ToDo extends StatelessWidget {
           }
         }),
       ),
+      floatingActionButtonLocation: null,
     );
   }
 }
@@ -91,7 +92,7 @@ class _TaskListState extends State<TaskList> {
     if (tasks.isEmpty)
       return FeedbackInfo(
         child: Icon(
-          Icons.feedback_outlined,
+          Icons.list_alt_outlined,
           size: 96,
         ),
         legend: Text("Ainda não há anotações por aqui..."),
@@ -99,20 +100,27 @@ class _TaskListState extends State<TaskList> {
     return ListView.builder(
       itemBuilder: (context, index) {
         return TaskCard(
-            key: ObjectKey(tasks[index]),
-            task: tasks[index],
-            onCheck: (description, checked, time) {
-              setState(() {
-                tasks[index] = Task(description, checked, time);
-              });
-              widget.saveData(tasks);
-            },
-            onDelete: (description, checked, time) {
-              setState(() {
-                tasks.removeAt(index);
-              });
-              widget.saveData(tasks);
+          key: ObjectKey(tasks[index]),
+          task: tasks[index],
+          onCheck: (task) {
+            setState(() {
+              tasks[index] = task;
             });
+            widget.saveData(tasks);
+          },
+          onDelete: (task) {
+            setState(() {
+              tasks.removeAt(index);
+            });
+            widget.saveData(tasks);
+          },
+          onEdit: (task){
+            setState(() {
+              tasks[index] = task;
+            });
+            widget.saveData(tasks);
+          },
+        );
       },
       itemCount: tasks.length,
     );

@@ -5,6 +5,11 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 class NewTaskDialog extends StatelessWidget {
   final _formKey = GlobalKey<FormBuilderState>();
 
+  final String description;
+  final String fieldName = "descricao";
+
+  NewTaskDialog({this.description});
+
   @override
   Widget build(BuildContext context) {
     return SimpleDialog(
@@ -15,7 +20,8 @@ class NewTaskDialog extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: KeyboardInputField(
-              "descricao",
+              fieldName,
+              initialValue: description,
               hint: "Digite aqui",
               validations: [FormBuilderValidators.required(context)],
             ),
@@ -37,7 +43,7 @@ class NewTaskDialog extends StatelessWidget {
                   onPressed: () {
                     final form = _formKey.currentState;
                     if (form.validate())
-                      Navigator.pop(context, form.fields["descricao"].value);
+                      Navigator.pop(context, form.fields[fieldName].value);
                   }),
             ),
           ],

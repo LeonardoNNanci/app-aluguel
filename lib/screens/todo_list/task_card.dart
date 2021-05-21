@@ -1,12 +1,13 @@
 import 'package:aluguel/models/task.dart';
+import 'package:aluguel/screens/todo_list/task_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class TaskCard extends StatefulWidget {
   final Task task;
-  final Function(String, bool, DateTime) onDelete;
-  final Function(String, bool, DateTime) onCheck;
-  final Function(String, bool, DateTime) onEdit;
+  final Function(Task) onDelete;
+  final Function(Task) onCheck;
+  final Function(Task) onEdit;
 
   final Color checkedColor = Colors.black26;
 
@@ -23,58 +24,79 @@ class TaskCard extends StatefulWidget {
 }
 
 class _TaskCardState extends State<TaskCard> {
-  String description;
-  bool checked;
-  DateTime checkTime;
+  Task task;
 
   @override
   void initState() {
     super.initState();
-    description = widget.task.description;
-    checked = widget.task.checked;
-    checkTime = widget.task.checkTime;
+    task = widget.task;
   }
 
   @override
   Widget build(BuildContext context) {
     return CheckboxListTile(
-      value: checked,
+      value: task.checked,
       onChanged: (value) {
         setState(() {
-          checked = value;
-          checkTime = DateTime.now().toLocal();
+          task.checked = value;
+          task.checkTime = DateTime.now().toLocal();
         });
-        widget.onCheck(description, checked, checkTime);
+        widget.onCheck(task);
       },
       title: Text(
-        description,
-        style: checked
+        task.description,
+        style: task.checked
             ? TextStyle(
                 color: widget.checkedColor,
                 decoration: TextDecoration.lineThrough,
               )
             : null,
       ),
-      subtitle: checked
+      subtitle: task.checked
           ? Text(_formattedCheckTime(),
               style: TextStyle(
                 color: widget.checkedColor,
               ))
           : null,
-      secondary: IconButton(
-        icon: Icon(Icons.delete),
-        onPressed: () => widget.onDelete(description, checked, checkTime),
-      ),
+      secondary: DropdownButton<void Function()>(
+        onChanged: (func)=>func(),
+          icon: const Icon(Icons.more_vert),
+          underline: Container(),
+          items: [
+            DropdownMenuItem(
+              value: _editTask,
+              child: Text("Editar"),
+            ),
+            DropdownMenuItem(
+              value: () => widget.onDelete(task),
+              child: Text("Remover"),
+            ),
+          ]),
       controlAffinity: ListTileControlAffinity.leading,
     );
   }
 
+  void _editTask() {
+    showDialog(
+        context: context,
+        builder: (context) => NewTaskDialog(
+              description: task.description,
+            )).then((taskDescription) {
+      if (taskDescription != null) {
+        setState(() {
+          task.description = taskDescription;
+        });
+        widget.onEdit(task);
+      }
+    });
+  }
+
   String _formattedCheckTime() {
     NumberFormat formatter = NumberFormat("00");
-    return "${formatter.format(checkTime.hour)}:"
-        "${formatter.format(checkTime.minute)} - "
-        "${formatter.format(checkTime.day)}/"
-        "${formatter.format(checkTime.month)}/"
-        "${formatter.format(checkTime.year)}";
+    return "${formatter.format(task.checkTime.hour)}:"
+        "${formatter.format(task.checkTime.minute)} - "
+        "${formatter.format(task.checkTime.day)}/"
+        "${formatter.format(task.checkTime.month)}/"
+        "${formatter.format(task.checkTime.year)}";
   }
 }

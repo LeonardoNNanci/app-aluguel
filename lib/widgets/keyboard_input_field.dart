@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 class KeyboardInputField extends StatelessWidget {
+  final String initialValue;
   final String name;
   final String label;
   final String hint;
@@ -23,6 +24,7 @@ class KeyboardInputField extends StatelessWidget {
     this.keyboardType,
     this.capitalization,
     this.validations,
+    this.initialValue,
   }) : super(key: key);
 
   @override
@@ -31,6 +33,7 @@ class KeyboardInputField extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: FormBuilderTextField(
         name: name,
+        initialValue: initialValue,
         decoration: InputDecoration(
           labelText: label,
           hintText: hint,

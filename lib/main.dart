@@ -1,5 +1,6 @@
-import 'package:aluguel/screens/todo_list/todo_list.dart';
 import 'package:flutter/material.dart';
+
+import 'package:aluguel/screens/todo_list/todo_list.dart';
 
 void main() {
   runApp(MyApp());

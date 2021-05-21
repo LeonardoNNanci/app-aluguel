@@ -1,7 +1,8 @@
-import 'package:aluguel/models/task.dart';
-import 'package:aluguel/screens/todo_list/task_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
+import 'package:aluguel/models/task.dart';
+import 'package:aluguel/screens/todo_list/task_dialog.dart';
 
 class TaskCard extends StatefulWidget {
   final Task task;
@@ -59,7 +60,7 @@ class _TaskCardState extends State<TaskCard> {
               ))
           : null,
       secondary: DropdownButton<void Function()>(
-        onChanged: (func)=>func(),
+          onChanged: (func) => func(),
           icon: const Icon(Icons.more_vert),
           underline: Container(),
           items: [

@@ -1,12 +1,17 @@
+import 'package:flutter/material.dart';
+
 import 'package:aluguel/models/task.dart';
 import 'package:aluguel/screens/todo_list/task_card.dart';
 import 'package:aluguel/screens/todo_list/task_dialog.dart';
 import 'package:aluguel/util/json_io.dart';
-import 'package:aluguel/widgets/error_feedback.dart';
-import 'package:aluguel/widgets/feedback_info.dart';
-import 'package:flutter/material.dart';
+import 'package:aluguel/widgets/feedback/error_feedback.dart';
+import 'package:aluguel/widgets/feedback/feedback_info.dart';
 
 class ToDo extends StatelessWidget {
+  final String _appBarTitle = "Lista de Tarefas";
+  final String _loadingLegend = "Carregando infomações...";
+  final String _noDataLegend = "Ainda não há anotações por aqui...";
+
   final file = JsonFile("todo.txt");
   final taskListKey = GlobalKey<_TaskListState>();
 
@@ -16,7 +21,7 @@ class ToDo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Lista de afazeres"),
+        title: Text(_appBarTitle),
       ),
       body: FutureBuilder(
         future: file.readData(),
@@ -25,7 +30,7 @@ class ToDo extends StatelessWidget {
             case ConnectionState.waiting:
               return FeedbackInfo(
                 child: CircularProgressIndicator(),
-                legend: Text("Carregando infomações..."),
+                legend: Text(_loadingLegend),
               );
               break;
             case ConnectionState.done:
@@ -114,7 +119,7 @@ class _TaskListState extends State<TaskList> {
             });
             widget.saveData(tasks);
           },
-          onEdit: (task){
+          onEdit: (task) {
             setState(() {
               tasks[index] = task;
             });

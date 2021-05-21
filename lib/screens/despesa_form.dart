@@ -1,8 +1,9 @@
-import 'package:aluguel/models/despesa.dart';
-import 'package:aluguel/widgets/keyboard_input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+
 import 'package:aluguel/models/imovel.dart';
+import 'package:aluguel/models/despesa.dart';
+import 'package:aluguel/widgets/keyboard_input_field.dart';
 
 class DespesaForm extends StatelessWidget {
   final _formKey = GlobalKey<FormBuilderState>();
@@ -80,8 +81,8 @@ class DespesaForm extends StatelessWidget {
     );
   }
 
-  Despesa _submit(){
-    if(_formKey.currentState.validate()){
+  Despesa _submit() {
+    if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
       print(_formKey.currentState.value);
     }

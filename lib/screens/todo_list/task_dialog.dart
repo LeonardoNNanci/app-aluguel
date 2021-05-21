@@ -1,6 +1,7 @@
-import 'package:aluguel/widgets/keyboard_input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+
+import 'package:aluguel/widgets/keyboard_input_field.dart';
 
 class NewTaskDialog extends StatelessWidget {
   final _formKey = GlobalKey<FormBuilderState>();

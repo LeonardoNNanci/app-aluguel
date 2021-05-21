@@ -1,9 +1,8 @@
 import 'dart:io';
 import 'dart:convert';
-import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 
-class JsonFile{
+class JsonFile {
   final String filename;
 
   JsonFile(this.filename);

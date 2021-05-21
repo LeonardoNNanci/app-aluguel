@@ -1,5 +1,6 @@
-import 'package:aluguel/widgets/feedback_info.dart';
 import 'package:flutter/material.dart';
+
+import 'package:aluguel/widgets/feedback_info.dart';
 
 class ErrorFeedback extends StatelessWidget {
   const ErrorFeedback({Key key}) : super(key: key);

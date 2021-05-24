@@ -1,67 +1,31 @@
-import 'package:aluguel/models/database_model.dart';
+import 'package:aluguel/models/aluguel.dart';
+import 'package:aluguel/models/abstract_model.dart';
 
-class Imovel extends DatabaseModel {
-  String _local;
-  int _maxHospedes;
-  double _tarifaPadrao;
-  double _descontoSemana;
-  double _descontoMes;
+class Imovel extends AbstractModel {
+  String local;
+  int maxHospedes;
+  double tarifaPadrao;
+  double descontoSemana;
+  double descontoMes;
+
+  @override
+  String table = 'imovel';
 
   Imovel(
-    this._local,
-    this._maxHospedes,
-    this._tarifaPadrao,
-    this._descontoSemana,
-    this._descontoMes, {
+    this.local,
+    this.maxHospedes,
+    this.tarifaPadrao,
+    this.descontoSemana,
+    this.descontoMes, {
     id,
   }) : super(id);
 
   Imovel.fromMap(Map<String, dynamic> map) : super.fromMap(map) {
-    this._local = map["local"];
-    this._maxHospedes = map["max_hospedes"];
-    this._tarifaPadrao = map["tarifa_padrao"];
-    this._descontoSemana = map["desconto_semana"];
-    this._descontoMes = map["descontoM_mes"];
-  }
-
-  String get local {
-    return this._local;
-  }
-
-  int get maxHospedes {
-    return this._maxHospedes;
-  }
-
-  double get tarifaPadrao {
-    return this._tarifaPadrao;
-  }
-
-  double get descontoSemana {
-    return this._descontoSemana;
-  }
-
-  double get descontoMes {
-    return this._descontoMes;
-  }
-
-  set local(String local) {
-    this._local = local;
-  }
-
-  set maxHospedes(int maxHospedes) {
-    this._maxHospedes = maxHospedes;
-  }
-
-  set tarifaPadrao(double tarifaPadrao) {
-    this._tarifaPadrao = tarifaPadrao;
-  }
-
-  set descontoSemana(double descontoSemana) {
-    this._descontoSemana = descontoSemana;
-  }
-
-  set descontoMes(double descontoMes) {
-    this._descontoMes = descontoMes;
+    this.local = map["local"];
+    this.maxHospedes = map["max_hospedes"];
+    this.tarifaPadrao = map["tarifa_padrao"];
+    this.descontoSemana = map["desconto_semana"];
+    this.descontoMes = map["desconto_mes"];
   }
 
   @override
@@ -70,11 +34,11 @@ class Imovel extends DatabaseModel {
 
     if (this.id != null) map["id"] = this.id;
 
-    map["local"] = this._local;
-    map["max_hospedes"] = this._maxHospedes;
-    map["tarifa_padrao"] = this._tarifaPadrao;
-    map["desconto_semana"] = this._descontoSemana;
-    map["desconto_mes"] = this._descontoMes;
+    map["local"] = this.local;
+    map["max_hospedes"] = this.maxHospedes;
+    map["tarifa_padrao"] = this.tarifaPadrao;
+    map["desconto_semana"] = this.descontoSemana;
+    map["desconto_mes"] = this.descontoMes;
 
     return map;
   }
@@ -82,8 +46,9 @@ class Imovel extends DatabaseModel {
   @override
   String toString() {
     return "Imóvel: { "
-        "Local: $_local  |  "
-        "Hóspedes: $_maxHospedes  |  "
-        "Tarifa: $_tarifaPadrao }";
+        "Id: $id  |  "
+        "Local: $local  |  "
+        "Hóspedes: $maxHospedes  |  "
+        "Tarifa: $tarifaPadrao }";
   }
 }

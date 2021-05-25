@@ -27,7 +27,8 @@ class ImovelDao {
 
   Future<Imovel> update(Imovel imovel) async {
     Database db = await database.instance;
-    await db.update(table, imovel.toMap());
+    await db.update(table, imovel.toMap(),
+        where: "$idField=?", whereArgs: [imovel.id]);
     return imovel;
   }
 
@@ -47,6 +48,7 @@ class ImovelDao {
     Database db = await database.instance;
     List<Map<String, dynamic>> map =
         await db.query(table, where: "$idField=?", whereArgs: [id]);
+    if (map.isEmpty) return null;
     return Imovel.fromMap(map[0]);
   }
 }

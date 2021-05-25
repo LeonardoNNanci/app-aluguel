@@ -23,7 +23,8 @@ class HospedeDao {
 
   Future<Hospede> update(Hospede hospede) async {
     Database db = await database.instance;
-    await db.update(table, hospede.toMap());
+    await db.update(table, hospede.toMap(),
+        where: "$idField=?", whereArgs: [hospede.id]);
     return hospede;
   }
 
@@ -42,7 +43,8 @@ class HospedeDao {
   Future<Hospede> selectById(int id) async {
     Database db = await database.instance;
     List<Map<String, dynamic>> map =
-    await db.query(table, where: "$idField=?", whereArgs: [id]);
+        await db.query(table, where: "$idField=?", whereArgs: [id]);
+    if (map.isEmpty) return null;
     return Hospede.fromMap(map[0]);
   }
 }

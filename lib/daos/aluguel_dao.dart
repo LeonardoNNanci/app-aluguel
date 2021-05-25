@@ -35,7 +35,8 @@ class AluguelDao {
 
   Future<Aluguel> update(Aluguel aluguel) async {
     Database db = await database.instance;
-    await db.update(table, aluguel.toMap());
+    await db.update(table, aluguel.toMap(),
+        where: "$idField=?", whereArgs: [aluguel.id]);
     return aluguel;
   }
 
@@ -54,7 +55,8 @@ class AluguelDao {
   Future<Aluguel> selectById(int id) async {
     Database db = await database.instance;
     List<Map<String, dynamic>> map =
-    await db.query(table, where: "$idField=?", whereArgs: [id]);
+        await db.query(table, where: "$idField=?", whereArgs: [id]);
+    if (map.isEmpty) return null;
     return Aluguel.fromMap(map[0]);
   }
 }

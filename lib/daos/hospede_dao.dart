@@ -13,6 +13,8 @@ class HospedeDao {
 
   static String get cpfField => 'cpf';
 
+  static String get enderecoField => 'endereco';
+
   AppDatabase database = AppDatabase();
 
   Future<Hospede> insert(Hospede hospede) async {

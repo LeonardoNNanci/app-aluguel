@@ -13,11 +13,14 @@ class AppDatabase {
     if (_database == null) {
       final databasePath = await getDatabasesPath();
       final path = join(databasePath, _databaseFileName);
-
+deleteDatabase(path);
       return openDatabase(
         path,
-        onCreate: (database, version) {
-          database.execute(config.createDatabaseSql);
+        onCreate: (database, version) async {
+          await database.execute(config.createTableImovel);
+          await database.execute(config.createTableHospede);
+          await database.execute(config.createTableAluguel);
+          await database.execute(config.createTableDespesa);
         },
         version: 1,
       );

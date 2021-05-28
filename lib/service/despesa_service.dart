@@ -1,7 +1,7 @@
 import 'package:aluguel/daos/despesa_dao.dart';
 import 'package:aluguel/models/despesa.dart';
 
-class HospedeService {
+class DespesaService {
   DespesaDao _despesaDao = DespesaDao();
 
   Future<Despesa> create(Despesa despesa) async {

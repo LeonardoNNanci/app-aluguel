@@ -2,26 +2,26 @@ import 'package:aluguel/daos/imovel_dao.dart';
 import 'package:aluguel/models/imovel.dart';
 
 class ImovelService {
-  ImovelDao imovelDao = ImovelDao();
+  ImovelDao _imovelDao = ImovelDao();
 
   Future<Imovel> create(Imovel imovel) async {
     if (imovel.id != null) return null;
-    return await imovelDao.insert(imovel);
+    return await _imovelDao.insert(imovel);
   }
 
   Future<Imovel> update(Imovel imovel) async {
     if (imovel.id == null) return null;
-    if (await imovelDao.selectById(imovel.id) == null) return null;
-    return await imovelDao.update(imovel);
+    if (await _imovelDao.selectById(imovel.id) == null) return null;
+    return await _imovelDao.update(imovel);
   }
 
   Future<Imovel> remove(Imovel imovel) async {
     if (imovel.id == null) return null;
-    if (await imovelDao.selectById(imovel.id) == null) return null;
-    return await imovelDao.delete(imovel);
+    if (await _imovelDao.selectById(imovel.id) == null) return null;
+    return await _imovelDao.delete(imovel);
   }
 
   Future<List<Imovel>> getAll() async {
-    return await imovelDao.selectAll();
+    return await _imovelDao.selectAll();
   }
 }

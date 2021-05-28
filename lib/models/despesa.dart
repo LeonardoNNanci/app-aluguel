@@ -1,22 +1,22 @@
 import 'package:aluguel/models/abstract_model.dart';
-import 'package:aluguel/models/imovel.dart';
+import 'package:aluguel/util/parse_maybe.dart';
 
 class Despesa extends AbstractModel {
   String servico;
   double valor;
-  Imovel imovel;
+  int imovelId;
 
   Despesa(
     this.servico,
     this.valor,
-    this.imovel, {
+    this.imovelId, {
     id,
   }) : super(id);
 
   Despesa.fromMap(Map<String, dynamic> map) : super.fromMap(map) {
     this.servico = map["servico"];
-    this.valor = map["valor"];
-    this.imovel = map["imovel_id"];
+    this.valor = parseMaybe<double>(map["valor"]);
+    this.imovelId = parseMaybe<int>(map["imovel_id"]);
   }
 
   @override
@@ -27,18 +27,17 @@ class Despesa extends AbstractModel {
 
     map["servico"] = this.servico;
     map["valor"] = this.valor;
-    map["imovel_id"] = this.imovel;
+    map["imovel_id"] = this.imovelId;
 
     return map;
   }
 
   @override
   String toString() {
-    var localImovel = imovel.local;
     return "Despesa: { "
         "Id: $id  |  "
         "Servico: $servico  |  "
-        "Imóvel: $localImovel  |  "
+        "Imóvel: $imovelId  |  "
         "Valor: $valor }";
   }
 }

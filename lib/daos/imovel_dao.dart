@@ -11,7 +11,7 @@ class ImovelDao {
 
   static String get maxHospedesField => 'max_hospedes';
 
-  static String get tarifaField => 'tarifa_padrão';
+  static String get tarifaField => 'tarifa_padrao';
 
   static String get descontoSemanaField => 'desconto_semana';
 

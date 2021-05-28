@@ -1,10 +1,16 @@
-import 'package:aluguel/models/hospede.dart';
+import 'package:aluguel/control/hospede_form_control.dart';
 import 'package:aluguel/widgets/keyboard_input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
+// ignore: must_be_immutable
 class HospedeForm extends StatelessWidget {
   final _formKey = GlobalKey<FormBuilderState>();
+  HospedeFormControl _control;
+
+  HospedeForm(){
+    _control = HospedeFormControl(_formKey);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +59,7 @@ class HospedeForm extends StatelessWidget {
                   ],
                 ),
                 ElevatedButton(
-                  onPressed: submit,
+                  onPressed: _control.registerHospede,
                   child: Text("Cadastrar"),
                 )
               ],
@@ -64,11 +70,4 @@ class HospedeForm extends StatelessWidget {
     );
   }
 
-  Hospede submit() {
-    if (_formKey.currentState.validate()) {
-      _formKey.currentState.save();
-      print(_formKey.currentState.value);
-    }
-    return null;
-  }
 }

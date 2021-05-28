@@ -1,17 +1,18 @@
-import 'package:aluguel/models/despesa.dart';
-import 'package:aluguel/widgets/keyboard_input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:aluguel/models/imovel.dart';
 
+import 'package:aluguel/control/despesa_form_control.dart';
+import 'package:aluguel/widgets/keyboard_input_field.dart';
+
+// ignore: must_be_immutable
 class DespesaForm extends StatelessWidget {
   final _formKey = GlobalKey<FormBuilderState>();
 
-  // TODO remove hardcoded Imoveis after persistence
-  final _imoveis = [
-    Imovel("Itaipava", 8, 500, 7, 15),
-    Imovel("Araruama", 8, 500, 7, 15),
-  ];
+  DespesaFormControl _control;
+
+  DespesaForm() {
+    _control = DespesaFormControl(_formKey);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,27 +50,44 @@ class DespesaForm extends StatelessWidget {
                       ),
                     ),
                     Expanded(
-                      child: FormBuilderDropdown(
-                        name: "imovel",
-                        decoration: InputDecoration(
-                          labelText: "Imóvel",
-                          icon: Icon(Icons.home_work),
-                        ),
-                        validator: FormBuilderValidators.compose(
-                            [FormBuilderValidators.required(context)]),
-                        allowClear: true,
-                        items: _imoveis
-                            .map((e) => DropdownMenuItem(
-                                  child: Text(e.local),
-                                  value: e,
-                                ))
-                            .toList(),
-                      ),
-                    ),
+                        child: FutureBuilder(
+                      future: _control.getImoveis(),
+                      builder: (context, snapshot) {
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.none:
+                            break;
+                          case ConnectionState.waiting:
+                            return Placeholder();
+                            break;
+                          case ConnectionState.active:
+                            break;
+                          case ConnectionState.done:
+                            return FormBuilderDropdown(
+                              name: "imovel_id",
+                              decoration: InputDecoration(
+                                labelText: "Imóvel",
+                                icon: Icon(Icons.home_work),
+                              ),
+                              validator: FormBuilderValidators.compose(
+                                  [FormBuilderValidators.required(context)]),
+                              allowClear: true,
+                              items: snapshot.data
+                                  .map<DropdownMenuItem>(
+                                      (e) => DropdownMenuItem(
+                                            child: Text(e.local),
+                                            value: e.id,
+                                          ))
+                                  .toList(),
+                            );
+                            break;
+                        }
+                        return Placeholder();
+                      },
+                    )),
                   ],
                 ),
                 ElevatedButton(
-                  onPressed: _submit,
+                  onPressed: _control.registerDespesa,
                   child: Text("Cadastrar"),
                 ),
               ],
@@ -78,13 +96,5 @@ class DespesaForm extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Despesa _submit(){
-    if(_formKey.currentState.validate()){
-      _formKey.currentState.save();
-      print(_formKey.currentState.value);
-    }
-    return null;
   }
 }

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 class ImovelFormControl {
-  ImovelService service = ImovelService();
+  ImovelService _service = ImovelService();
   final GlobalKey<FormBuilderState> _formKey;
 
   ImovelFormControl(this._formKey);
@@ -14,7 +14,7 @@ class ImovelFormControl {
       _formKey.currentState.save();
       final formData = _formKey.currentState.value;
       final imovel = Imovel.fromMap(formData);
-      service.create(imovel).then((value) => print(value));
+      _service.create(imovel).then((value) => print(value));
     }
     return null;
   }

@@ -1,31 +1,18 @@
-import 'package:aluguel/models/aluguel.dart';
-import 'package:aluguel/models/hospede.dart';
-import 'package:aluguel/models/imovel.dart';
+import 'package:aluguel/control/aluguel_form_control.dart';
 import 'package:aluguel/widgets/keyboard_input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:intl/intl.dart' as intl;
 
-class AluguelForm extends StatefulWidget {
-  @override
-  _AluguelFormState createState() => _AluguelFormState();
-}
-
-class _AluguelFormState extends State<AluguelForm> {
+// ignore: must_be_immutable
+class AluguelForm extends StatelessWidget {
   final _formKey = GlobalKey<FormBuilderState>();
 
-  final _imoveis = [
-    Imovel("Itaipava", 8, 500, 7, 15),
-    Imovel("Araruama", 8, 500, 7, 15),
-  ];
+  AluguelFormControl _control;
 
-  final _hospedes = [
-    Hospede("João", "joão@email.com", "Rua do Jão", "13254679810"),
-    Hospede("Clara", "joão@email.com", "Rua do Jão", "13254679810"),
-    Hospede("Ana", "joão@email.com", "Rua do Jão", "13254679810"),
-    Hospede("Anna", "joão@email.com", "Rua do Jão", "13254679810"),
-    Hospede("Pedro", "joão@email.com", "Rua do Jão", "13254679810"),
-  ];
+  AluguelForm() {
+    _control = AluguelFormControl(_formKey);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,41 +28,76 @@ class _AluguelFormState extends State<AluguelForm> {
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: FormBuilderDropdown(
-                    name: "imovel",
-                    items: _imoveis
-                        .map((e) => DropdownMenuItem(
-                              child: Text(e.local),
-                              value: e,
-                            ))
-                        .toList(),
-                    validator: FormBuilderValidators.compose([
-                      FormBuilderValidators.required(context),
-                    ]),
-                    decoration: InputDecoration(
-                      labelText: "Imóvel",
-                      icon: Icon(Icons.home_work),
-                    ),
-                  ),
-                ),
+                    padding: const EdgeInsets.all(8.0),
+                    child: FutureBuilder(
+                      future: _control.getImoveis(),
+                      builder: (context, snapshot) {
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.none:
+                            break;
+                          case ConnectionState.waiting:
+                            return Placeholder();
+                            break;
+                          case ConnectionState.active:
+                            break;
+                          case ConnectionState.done:
+                            return FormBuilderDropdown(
+                              name: "imovel_id",
+                              items: snapshot.data
+                                  .map<DropdownMenuItem>((e) => DropdownMenuItem(
+                                        child: Text(e.local),
+                                        value: e.id,
+                                      ))
+                                  .toList(),
+                              validator: FormBuilderValidators.compose([
+                                FormBuilderValidators.required(context),
+                              ]),
+                              decoration: InputDecoration(
+                                labelText: "Imóvel",
+                                icon: Icon(Icons.home_work),
+                              ),
+                              onChanged: (val) => _control.onChange("imovel_id", val),
+                            );
+                            break;
+                        }
+                        return Placeholder();
+                      },
+                    )),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: FormBuilderDropdown(
-                    name: "hospede",
-                    items: _hospedes
-                        .map((e) => DropdownMenuItem(
-                              child: Text(e.nome),
-                              value: e,
-                            ))
-                        .toList(),
-                    validator: FormBuilderValidators.compose([
-                      FormBuilderValidators.required(context),
-                    ]),
-                    decoration: InputDecoration(
-                        labelText: "Hóspede", icon: Icon(Icons.person)),
-                  ),
-                ),
+                    padding: const EdgeInsets.all(8.0),
+                    child: FutureBuilder(
+                      future: _control.getHospedes(),
+                      builder: (context, snapshot) {
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.none:
+                            break;
+                          case ConnectionState.waiting:
+                            return Placeholder();
+                            break;
+                          case ConnectionState.active:
+                            break;
+                          case ConnectionState.done:
+                            return FormBuilderDropdown(
+                              name: "hospede_id",
+                              items: snapshot.data
+                                  .map<DropdownMenuItem>((e) => DropdownMenuItem(
+                                        child: Text(e.nome),
+                                        value: e.id,
+                                      ))
+                                  .toList(),
+                              validator: FormBuilderValidators.compose([
+                                FormBuilderValidators.required(context),
+                              ]),
+                              decoration: InputDecoration(
+                                  labelText: "Hóspede",
+                                  icon: Icon(Icons.person)),
+                              onChanged: (val) => _control.onChange("hospede_id", val),
+                            );
+                            break;
+                        }
+                        return Placeholder();
+                      },
+                    )),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: FormBuilderDateRangePicker(
@@ -90,13 +112,14 @@ class _AluguelFormState extends State<AluguelForm> {
                       labelText: "Período",
                       icon: Icon(Icons.calendar_today),
                     ),
+                    onChanged: (dtr) => _control.onChange("periodo", dtr),
                   ),
                 ),
                 Row(
                   children: [
                     Expanded(
                       child: KeyboardInputField(
-                        "hospedes",
+                        "total_hospedes",
                         label: "Total de Hóspedes",
                         icon: Icons.people,
                         keyboardType: TextInputType.number,
@@ -105,6 +128,7 @@ class _AluguelFormState extends State<AluguelForm> {
                           FormBuilderValidators.integer(context),
                           FormBuilderValidators.min(context, 1),
                         ],
+                        onChanged: (val) => _control.onChange("total_hospedes", int.parse(val)),
                       ),
                     ),
                     Expanded(
@@ -118,6 +142,7 @@ class _AluguelFormState extends State<AluguelForm> {
                           FormBuilderValidators.numeric(context),
                           FormBuilderValidators.min(context, 0),
                         ],
+                        onChanged: (val) => _control.onChange("valor", double.parse(val)),
                       ),
                     ),
                   ],
@@ -125,12 +150,13 @@ class _AluguelFormState extends State<AluguelForm> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: FormBuilderSwitch(
-                    name: "roupaDeCama",
+                    name: "roupa_de_cama",
                     initialValue: false,
                     title: Text("Roupa de cama"),
                     decoration: InputDecoration(
                       icon: Icon(Icons.local_laundry_service),
                     ),
+                    onChanged: (val) => _control.onChange("roupa_de_cama", val),
                   ),
                 ),
                 Padding(
@@ -157,14 +183,16 @@ class _AluguelFormState extends State<AluguelForm> {
                     padding: EdgeInsets.symmetric(horizontal: 16.0),
                     alignment: WrapAlignment.center,
                     decoration: InputDecoration(labelText: "Forma"),
+                    onChanged: (val) => _control.onChange("forma", val),
                   ),
                 ),
                 KeyboardInputField(
-                  "obs",
+                  "observacao",
                   label: "Observações",
+                  onChanged: (val) => _control.onChange("observacao", val),
                 ),
                 ElevatedButton(
-                  onPressed: _submit,
+                  onPressed: () => _control.registerAluguel(),
                   child: Text("Cadastrar"),
                 ),
               ],
@@ -173,15 +201,5 @@ class _AluguelFormState extends State<AluguelForm> {
         ),
       ),
     );
-  }
-
-  Aluguel _submit() {
-    final form = _formKey.currentState;
-    if (form.validate()) {
-      form.save();
-      print(form.value);
-    }
-
-    return null;
   }
 }

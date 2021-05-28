@@ -3,6 +3,7 @@ import 'package:aluguel/widgets/keyboard_input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
+// ignore: must_be_immutable
 class ImovelForm extends StatelessWidget {
   final _formKey = GlobalKey<FormBuilderState>();
 

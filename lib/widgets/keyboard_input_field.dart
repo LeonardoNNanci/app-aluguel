@@ -11,6 +11,7 @@ class KeyboardInputField extends StatelessWidget {
   final TextInputType keyboardType;
   final TextCapitalization capitalization;
   final List<String Function(String)> validations;
+  final void Function(String) onChanged;
 
   const KeyboardInputField(
     this.name, {
@@ -23,6 +24,7 @@ class KeyboardInputField extends StatelessWidget {
     this.keyboardType,
     this.capitalization,
     this.validations,
+    this.onChanged,
   }) : super(key: key);
 
   @override
@@ -45,6 +47,7 @@ class KeyboardInputField extends StatelessWidget {
         textCapitalization: capitalization != null
             ? capitalization
             : TextCapitalization.sentences,
+        onChanged: onChanged,
       ),
     );
   }

@@ -1,8 +1,4 @@
-import 'package:aluguel/models/aluguel.dart';
 import 'package:aluguel/models/abstract_model.dart';
-import 'package:aluguel/util/parse_maybe.dart';
-import 'package:aluguel/util/parse_maybe.dart';
-import 'package:aluguel/util/parse_maybe.dart';
 import 'package:aluguel/util/parse_maybe.dart';
 
 class Imovel extends AbstractModel {

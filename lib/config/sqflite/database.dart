@@ -13,7 +13,6 @@ class AppDatabase {
     if (_database == null) {
       final databasePath = await getDatabasesPath();
       final path = join(databasePath, _databaseFileName);
-deleteDatabase(path);
       return openDatabase(
         path,
         onCreate: (database, version) async {

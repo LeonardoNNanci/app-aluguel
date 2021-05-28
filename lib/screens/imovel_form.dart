@@ -1,10 +1,16 @@
-import 'package:aluguel/models/imovel.dart';
+import 'package:aluguel/control/imovel_form_control.dart';
 import 'package:aluguel/widgets/keyboard_input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 class ImovelForm extends StatelessWidget {
   final _formKey = GlobalKey<FormBuilderState>();
+
+  ImovelFormControl _control;
+
+  ImovelForm(){
+    _control = ImovelFormControl(_formKey);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +37,7 @@ class ImovelForm extends StatelessWidget {
                   children: [
                     Expanded(
                       child: KeyboardInputField(
-                        "hospedes",
+                        "max_hospedes",
                         label: "Hóspedes",
                         icon: Icons.account_circle,
                         keyboardType: TextInputType.number,
@@ -44,7 +50,7 @@ class ImovelForm extends StatelessWidget {
                     ),
                     Expanded(
                       child: KeyboardInputField(
-                        "tarifa",
+                        "tarifa_padrao",
                         label: "Tarifa",
                         icon: Icons.attach_money,
                         prefix: "R\$ ",
@@ -63,7 +69,7 @@ class ImovelForm extends StatelessWidget {
                   children: [
                     Expanded(
                       child: KeyboardInputField(
-                        "semana",
+                        "desconto_semana",
                         label: "Semana",
                         icon: Icons.calendar_today_outlined,
                         suffix: "%",
@@ -78,7 +84,7 @@ class ImovelForm extends StatelessWidget {
                     ),
                     Expanded(
                       child: KeyboardInputField(
-                        "mes",
+                        "desconto_mes",
                         label: "Mês",
                         icon: Icons.calendar_today,
                         suffix: "%",
@@ -94,7 +100,7 @@ class ImovelForm extends StatelessWidget {
                   ],
                 ),
                 ElevatedButton(
-                  onPressed: cadastrarImovel,
+                  onPressed: _control.cadastrarImovel,
                   child: Text("Cadastrar"),
                 )
               ],
@@ -103,13 +109,5 @@ class ImovelForm extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Imovel cadastrarImovel() {
-    if (_formKey.currentState.validate()) {
-      _formKey.currentState.save();
-      print(_formKey.currentState.value);
-    }
-    return null;
   }
 }

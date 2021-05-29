@@ -1,4 +1,4 @@
-import 'package:aluguel/control/hospede_form_control.dart';
+import 'package:aluguel/control/forms/hospede_form_control.dart';
 import 'package:aluguel/widgets/keyboard_input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -32,6 +32,7 @@ class HospedeForm extends StatelessWidget {
                   validations: [
                     FormBuilderValidators.required(context),
                   ],
+                  onChanged: (val) => _control.onChange("nome", val),
                 ),
                 KeyboardInputField(
                   "cpf",
@@ -40,6 +41,7 @@ class HospedeForm extends StatelessWidget {
                   validations: [
                     FormBuilderValidators.required(context),
                   ],
+                  onChanged: (val) => _control.onChange("cpf", val),
                 ),
                 KeyboardInputField(
                   "email",
@@ -49,6 +51,7 @@ class HospedeForm extends StatelessWidget {
                     FormBuilderValidators.required(context),
                     FormBuilderValidators.email(context),
                   ],
+                  onChanged: (val) => _control.onChange("email", val),
                 ),
                 KeyboardInputField(
                   "endereco",
@@ -57,6 +60,7 @@ class HospedeForm extends StatelessWidget {
                   validations: [
                     FormBuilderValidators.required(context),
                   ],
+                  onChanged: (val) => _control.onChange("endereco", val),
                 ),
                 ElevatedButton(
                   onPressed: _control.registerHospede,

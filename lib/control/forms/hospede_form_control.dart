@@ -7,14 +7,17 @@ class HospedeFormControl{
   final GlobalKey<FormBuilderState> _formKey;
   HospedeService _service = HospedeService();
 
+  Map<String, dynamic> _formData = Map<String, dynamic>();
+
   HospedeFormControl(this._formKey);
+
+  void onChange(String key, dynamic val) {
+    _formData[key] = val;
+  }
 
   Hospede registerHospede(){
     if (_formKey.currentState.validate()) {
-      _formKey.currentState.save();
-      print(_formKey.currentState.value);
-      final formData = _formKey.currentState.value;
-      final hospede = Hospede.fromMap(formData);
+      final hospede = Hospede.fromMap(_formData);
       _service.create(hospede).then((value) => print(value));
     }
     return null;

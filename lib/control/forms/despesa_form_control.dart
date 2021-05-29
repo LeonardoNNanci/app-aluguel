@@ -10,18 +10,21 @@ class DespesaFormControl{
   DespesaService _despesaService = DespesaService();
   ImovelService _imovelService = ImovelService();
 
+  Map<String, dynamic> _formData = Map<String, dynamic>();
+
   DespesaFormControl(this._formKey);
 
   Future<List<Imovel>> getImoveis() async {
     return await _imovelService.getAll();
   }
 
+  void onChange(String key, dynamic val){
+    _formData[key] = val;
+  }
+
   Despesa registerDespesa(){
     if (_formKey.currentState.validate()) {
-      _formKey.currentState.save();
-      print(_formKey.currentState.value);
-      final formData = _formKey.currentState.value;
-      final despesa = Despesa.fromMap(formData);
+      final despesa = Despesa.fromMap(_formData);
       _despesaService.create(despesa).then((value) => print(value));
     }
     return null;

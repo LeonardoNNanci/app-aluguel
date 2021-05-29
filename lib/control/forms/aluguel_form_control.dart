@@ -7,15 +7,15 @@ import 'package:aluguel/service/imovel_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
-class AluguelFormControl{
+class AluguelFormControl {
   final GlobalKey<FormBuilderState> _formKey;
   ImovelService _imovelService = ImovelService();
   HospedeService _hospedeService = HospedeService();
   AluguelService _aluguelService = AluguelService();
 
-  AluguelFormControl(this._formKey);
+  Map<String, dynamic> _formData = Map<String, dynamic>();
 
-  Map<String, dynamic> formData = Map<String, dynamic>();
+  AluguelFormControl(this._formKey);
 
   Future<List<Imovel>> getImoveis() async {
     return await _imovelService.getAll();
@@ -25,16 +25,15 @@ class AluguelFormControl{
     return await _hospedeService.getAll();
   }
 
-  void onChange(String key, dynamic val){
-    formData[key] = val;
-    print(formData[key].runtimeType);
+  void onChange(String key, dynamic val) {
+    _formData[key] = val;
   }
 
-  Aluguel registerAluguel(){
+  Aluguel registerAluguel() {
     if (_formKey.currentState.validate()) {
-      formData["checkin"] = formData["periodo"].start;
-      formData["checkout"] = formData["periodo"].end;
-      final despesa = Aluguel.fromMap(formData);
+      _formData["checkin"] = _formData["periodo"].start;
+      _formData["checkout"] = _formData["periodo"].end;
+      final despesa = Aluguel.fromMap(_formData);
       _aluguelService.create(despesa).then((value) => print(value));
     }
     return null;

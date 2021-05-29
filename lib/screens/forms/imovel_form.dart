@@ -1,4 +1,4 @@
-import 'package:aluguel/control/imovel_form_control.dart';
+import 'package:aluguel/control/forms/imovel_form_control.dart';
 import 'package:aluguel/widgets/keyboard_input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -33,6 +33,7 @@ class ImovelForm extends StatelessWidget {
                   validations: [
                     FormBuilderValidators.required(context),
                   ],
+                  onChanged: (val) => _control.onChange("local", val),
                 ),
                 Row(
                   children: [
@@ -47,6 +48,7 @@ class ImovelForm extends StatelessWidget {
                           FormBuilderValidators.integer(context),
                           FormBuilderValidators.min(context, 1),
                         ],
+                        onChanged: (val) => _control.onChange("max_hospedes", int.parse(val)),
                       ),
                     ),
                     Expanded(
@@ -61,6 +63,7 @@ class ImovelForm extends StatelessWidget {
                           FormBuilderValidators.numeric(context),
                           FormBuilderValidators.min(context, 0),
                         ],
+                        onChanged: (val) => _control.onChange("tarifa_padrao", double.parse(val)),
                       ),
                     ),
                   ],
@@ -81,6 +84,7 @@ class ImovelForm extends StatelessWidget {
                           FormBuilderValidators.min(context, 0),
                           FormBuilderValidators.max(context, 100),
                         ],
+                        onChanged: (val) => _control.onChange("desconto_semana", double.parse(val)),
                       ),
                     ),
                     Expanded(
@@ -96,6 +100,7 @@ class ImovelForm extends StatelessWidget {
                           FormBuilderValidators.min(context, 0),
                           FormBuilderValidators.max(context, 100),
                         ],
+                        onChanged: (val) => _control.onChange("desconto_mes", double.parse(val)),
                       ),
                     ),
                   ],

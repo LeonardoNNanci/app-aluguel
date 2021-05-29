@@ -1,4 +1,4 @@
-import 'package:aluguel/control/aluguel_form_control.dart';
+import 'package:aluguel/control/forms/aluguel_form_control.dart';
 import 'package:aluguel/widgets/keyboard_input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';

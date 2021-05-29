@@ -1,3 +1,4 @@
+import 'package:aluguel/widgets/feedback/loading_feedback.dart';
 import 'package:flutter/material.dart';
 
 import 'package:aluguel/models/task.dart';
@@ -7,10 +8,10 @@ import 'package:aluguel/util/json_io.dart';
 import 'package:aluguel/widgets/feedback/error_feedback.dart';
 import 'package:aluguel/widgets/feedback/feedback_info.dart';
 
+final String _noDataLegend = "Ainda não há anotações por aqui...";
+
 class ToDo extends StatelessWidget {
   final String _appBarTitle = "Lista de Tarefas";
-  final String _loadingLegend = "Carregando infomações...";
-  final String _noDataLegend = "Ainda não há anotações por aqui...";
 
   final file = JsonFile("todo.txt");
   final taskListKey = GlobalKey<_TaskListState>();
@@ -28,10 +29,7 @@ class ToDo extends StatelessWidget {
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.waiting:
-              return FeedbackInfo(
-                child: CircularProgressIndicator(),
-                legend: Text(_loadingLegend),
-              );
+              return LoadingFeedback();
               break;
             case ConnectionState.done:
               List<Task> tasks = snapshot.data
@@ -100,7 +98,7 @@ class _TaskListState extends State<TaskList> {
           Icons.list_alt_outlined,
           size: 96,
         ),
-        legend: Text("Ainda não há anotações por aqui..."),
+        legend: Text(_noDataLegend),
       );
     return ListView.builder(
       itemBuilder: (context, index) {

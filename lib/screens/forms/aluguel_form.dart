@@ -1,4 +1,6 @@
 import 'package:aluguel/control/forms/aluguel_form_control.dart';
+import 'package:aluguel/widgets/feedback/error_feedback.dart';
+import 'package:aluguel/widgets/feedback/loading_feedback.dart';
 import 'package:aluguel/widgets/keyboard_input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -36,7 +38,7 @@ class AluguelForm extends StatelessWidget {
                           case ConnectionState.none:
                             break;
                           case ConnectionState.waiting:
-                            return Placeholder();
+                            return LoadingFeedback();
                             break;
                           case ConnectionState.active:
                             break;
@@ -60,7 +62,7 @@ class AluguelForm extends StatelessWidget {
                             );
                             break;
                         }
-                        return Placeholder();
+                        return ErrorFeedback();
                       },
                     )),
                 Padding(
@@ -72,7 +74,7 @@ class AluguelForm extends StatelessWidget {
                           case ConnectionState.none:
                             break;
                           case ConnectionState.waiting:
-                            return Placeholder();
+                            return LoadingFeedback();
                             break;
                           case ConnectionState.active:
                             break;
@@ -95,7 +97,7 @@ class AluguelForm extends StatelessWidget {
                             );
                             break;
                         }
-                        return Placeholder();
+                        return ErrorFeedback();
                       },
                     )),
                 Padding(

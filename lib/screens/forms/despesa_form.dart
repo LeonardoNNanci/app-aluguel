@@ -1,3 +1,5 @@
+import 'package:aluguel/widgets/feedback/error_feedback.dart';
+import 'package:aluguel/widgets/feedback/loading_feedback.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
@@ -59,7 +61,7 @@ class DespesaForm extends StatelessWidget {
                             case ConnectionState.none:
                               break;
                             case ConnectionState.waiting:
-                              return Placeholder();
+                              return LoadingFeedback();
                               break;
                             case ConnectionState.active:
                               break;
@@ -84,7 +86,7 @@ class DespesaForm extends StatelessWidget {
                               );
                               break;
                           }
-                          return Placeholder();
+                          return ErrorFeedback();
                         },
                       ),
                     ),

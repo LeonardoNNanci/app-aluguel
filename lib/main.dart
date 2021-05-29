@@ -1,3 +1,5 @@
+import 'package:aluguel/screens/forms/aluguel_form.dart';
+import 'package:aluguel/style/appTheme.dart';
 import 'package:flutter/material.dart';
 
 import 'package:aluguel/screens/todo_list/todo_list.dart';
@@ -11,11 +13,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blueGrey,
-      ),
+      theme: appTheme,
       home: ToDo(),
-      debugShowCheckedModeBanner: false,
     );
   }
 }

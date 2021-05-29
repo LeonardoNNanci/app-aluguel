@@ -1,110 +1,68 @@
-import 'hospede.dart';
-import 'imovel.dart';
+import 'package:aluguel/models/abstract_model.dart';
 
-class Aluguel {
-  Imovel _imovel;
-  Hospede _hospede;
-  DateTime _checkin, _checkout;
-  int _totalHospedes;
-  double _valor;
-  String _forma;
-  String _observacao;
-  bool _roupaDeCama;
+class Aluguel extends AbstractModel {
+  int imovelId;
+  int hospedeId;
+  DateTime checkin, checkout;
+  int totalHospedes;
+  double valor;
+  String forma;
+  String observacao;
+  bool roupaDeCama;
 
   Aluguel(
-    this._imovel,
-    this._hospede,
-    this._checkin,
-    this._checkout,
-    this._totalHospedes,
-    this._valor,
-    this._forma,
-    this._roupaDeCama,
-    this._observacao,
-  );
+      this.imovelId,
+      this.hospedeId,
+      this.checkin,
+      this.checkout,
+      this.totalHospedes,
+      this.valor,
+      this.forma,
+      this.roupaDeCama,
+      this.observacao,
+      {id})
+      : super(id);
 
-  Imovel get imovel {
-    return this._imovel;
+  Aluguel.fromMap(Map<String, dynamic> map) : super.fromMap(map) {
+    this.imovelId = map["imovel_id"];
+    this.hospedeId = map["hospede_id"];
+    this.checkin = DateTime.parse(map["checkin"]);
+    this.checkout = DateTime.parse(map["checkout"]);
+    this.totalHospedes = map["total_hospedes"];
+    this.valor = map["valor"];
+    this.forma = map["forma"];
+    this.roupaDeCama = map["roupa_de_cama"] == 1;
+    this.observacao = map["observacao"];
   }
 
-  Hospede get hospede {
-    return this._hospede;
-  }
+  @override
+  Map<String, dynamic> toMap() {
+    final Map<String, dynamic> map = Map();
 
-  DateTime get checkin {
-    return this._checkin;
-  }
+    if (this.id != null) map["id"] = this.id;
 
-  DateTime get checkout {
-    return this._checkout;
-  }
+    map["imovel_id"] = this.imovelId;
+    map["hospede_id"] = this.hospedeId;
+    map["checkin"] = this.checkin.toString();
+    map["checkout"] = this.checkout.toString();
+    map["total_hospedes"] = this.totalHospedes;
+    map["valor"] = this.valor;
+    map["forma"] = this.forma;
+    map["roupa_de_cama"] = this.roupaDeCama.toString();
+    map["observacao"] = this.observacao;
 
-  int get totalHospedes {
-    return this._totalHospedes;
-  }
-
-  double get valor {
-    return this._valor;
-  }
-
-  String get forma {
-    return this._forma;
-  }
-
-  String get observacao {
-    return this._observacao;
-  }
-
-  bool get roupaDeCama {
-    return this._roupaDeCama;
-  }
-
-  set imovel(Imovel imovel) {
-    this._imovel = imovel;
-  }
-
-  set hospede(Hospede hospede) {
-    this._hospede = hospede;
-  }
-
-  set checkin(DateTime checkin) {
-    this._checkin = checkin;
-  }
-
-  set checkout(DateTime checkout) {
-    this._checkout = checkout;
-  }
-
-  set totalHospedes(int totalHospedes) {
-    this._totalHospedes = totalHospedes;
-  }
-
-  set valor(double valor) {
-    this._valor = valor;
-  }
-
-  set forma(String forma) {
-    this._forma = forma;
-  }
-
-  set observacao(String observacao) {
-    this._observacao = observacao;
-  }
-
-  set roupaDeCama(bool roupaDeCama) {
-    this._roupaDeCama = roupaDeCama;
+    return map;
   }
 
   @override
   String toString() {
-    var localImovel = _imovel.local;
-    var hospede = _hospede.nome;
     return "Aluguel: { "
-        "Local: $localImovel  |  "
-        "Hóspede: $hospede  |  "
-        "Checkin: $_checkin  |  "
-        "Checkout: $_checkout  |  "
-        "Total de hóspedes: $_totalHospedes  |  "
-        "Valor: $_valor }";
+        "Id: $id  |  "
+        "Local: $imovelId  |  "
+        "Hóspede: $hospedeId  |  "
+        "Checkin: $checkin  |  "
+        "Checkout: $checkout  |  "
+        "Total de hóspedes: $totalHospedes  |  "
+        "Valor: $valor }";
   }
 }

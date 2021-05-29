@@ -12,6 +12,7 @@ class KeyboardInputField extends StatelessWidget {
   final TextInputType keyboardType;
   final TextCapitalization capitalization;
   final List<String Function(String)> validations;
+  final void Function(String) onChanged;
 
   const KeyboardInputField(
     this.name, {
@@ -25,6 +26,7 @@ class KeyboardInputField extends StatelessWidget {
     this.capitalization,
     this.validations,
     this.initialValue,
+    this.onChanged,
   }) : super(key: key);
 
   @override
@@ -48,25 +50,8 @@ class KeyboardInputField extends StatelessWidget {
         textCapitalization: capitalization != null
             ? capitalization
             : TextCapitalization.sentences,
+        onChanged: onChanged,
       ),
     );
   }
-
-// String _validator(String value) {
-//   if (validations == null) return null;
-//
-//   var required = validations.firstWhere(
-//       (element) => element == Validations.nonEmpty,
-//       orElse: () => null);
-//   // Se for não required e estiver vazio, não testa as outras
-//   if (required == null && Validations.nonEmpty(value) != null) return null;
-//
-//   String msg;
-//   for (Function validation in validations) {
-//     msg = validation(value);
-//     if (msg != null) return msg;
-//   }
-//
-//   return null;
-// }
 }

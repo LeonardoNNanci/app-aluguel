@@ -1,46 +1,42 @@
-import 'package:aluguel/models/imovel.dart';
+import 'package:aluguel/models/abstract_model.dart';
 
-class Despesa {
-  String _servico;
-  double _valor;
-  Imovel _imovel;
+class Despesa extends AbstractModel {
+  String servico;
+  double valor;
+  int imovelId;
 
   Despesa(
-    this._servico,
-    this._valor,
-    this._imovel,
-  );
+    this.servico,
+    this.valor,
+    this.imovelId, {
+    id,
+  }) : super(id);
 
-  String get servico {
-    return this._servico;
+  Despesa.fromMap(Map<String, dynamic> map) : super.fromMap(map) {
+    this.servico = map["servico"];
+    this.valor = map["valor"];
+    this.imovelId = map["imovel_id"];
   }
 
-  double get valor {
-    return this._valor;
-  }
+  @override
+  Map<String, dynamic> toMap() {
+    final Map<String, dynamic> map = Map();
 
-  Imovel get imovel {
-    return this._imovel;
-  }
+    if (this.id != null) map["id"] = this.id;
 
-  set servico(String servico) {
-    this._servico = servico;
-  }
+    map["servico"] = this.servico;
+    map["valor"] = this.valor;
+    map["imovel_id"] = this.imovelId;
 
-  set valor(double valor) {
-    this._valor = valor;
-  }
-
-  set imovel(Imovel imovel) {
-    this._imovel = imovel;
+    return map;
   }
 
   @override
   String toString() {
-    var imovel = _imovel.local;
     return "Despesa: { "
-        "Servico: $_servico  |  "
-        "Imóvel: $imovel  |  "
-        "Valor: $_valor }";
+        "Id: $id  |  "
+        "Servico: $servico  |  "
+        "Imóvel: $imovelId  |  "
+        "Valor: $valor }";
   }
 }

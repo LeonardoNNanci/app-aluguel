@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
-import 'package:aluguel/models/hospede.dart';
 import 'package:aluguel/widgets/keyboard_input_field.dart';
+import 'package:aluguel/control/forms/hospede_form_control.dart';
 
+// ignore: must_be_immutable
 class HospedeForm extends StatelessWidget {
   final _formKey = GlobalKey<FormBuilderState>();
+  HospedeFormControl _control;
+
+  HospedeForm() {
+    _control = HospedeFormControl(_formKey);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +33,7 @@ class HospedeForm extends StatelessWidget {
                   validations: [
                     FormBuilderValidators.required(context),
                   ],
+                  onChanged: (val) => _control.onChange("nome", val),
                 ),
                 KeyboardInputField(
                   "cpf",
@@ -35,6 +42,7 @@ class HospedeForm extends StatelessWidget {
                   validations: [
                     FormBuilderValidators.required(context),
                   ],
+                  onChanged: (val) => _control.onChange("cpf", val),
                 ),
                 KeyboardInputField(
                   "email",
@@ -44,6 +52,7 @@ class HospedeForm extends StatelessWidget {
                     FormBuilderValidators.required(context),
                     FormBuilderValidators.email(context),
                   ],
+                  onChanged: (val) => _control.onChange("email", val),
                 ),
                 KeyboardInputField(
                   "endereco",
@@ -52,9 +61,10 @@ class HospedeForm extends StatelessWidget {
                   validations: [
                     FormBuilderValidators.required(context),
                   ],
+                  onChanged: (val) => _control.onChange("endereco", val),
                 ),
                 ElevatedButton(
-                  onPressed: submit,
+                  onPressed: _control.registerHospede,
                   child: Text("Cadastrar"),
                 )
               ],
@@ -63,13 +73,5 @@ class HospedeForm extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Hospede submit() {
-    if (_formKey.currentState.validate()) {
-      _formKey.currentState.save();
-      print(_formKey.currentState.value);
-    }
-    return null;
   }
 }

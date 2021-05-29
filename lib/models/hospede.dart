@@ -1,51 +1,44 @@
-class Hospede {
-  String _nome;
-  String _email;
-  String _endereco;
-  String _cpf;
+import 'package:aluguel/models/abstract_model.dart';
+
+class Hospede extends AbstractModel {
+  String nome;
+  String email;
+  String endereco;
+  String cpf;
 
   Hospede(
-    this._nome,
-    this._email,
-    this._endereco,
-    this._cpf,
-  );
+    this.nome,
+    this.email,
+    this.endereco,
+    this.cpf, {
+    id,
+  }) : super(id);
 
-  String get nome {
-    return this._nome;
+  Hospede.fromMap(Map<String, dynamic> map) : super.fromMap(map) {
+    this.nome = map["nome"];
+    this.email = map["email"];
+    this.endereco = map["endereco"];
+    this.cpf = map["cpf"];
   }
 
-  String get email {
-    return this._email;
-  }
+  @override
+  Map<String, dynamic> toMap() {
+    final Map<String, dynamic> map = Map();
 
-  String get endereco {
-    return this._endereco;
-  }
+    if (this.id != null) map["id"] = this.id;
 
-  String get cpf {
-    return this._cpf;
-  }
+    map["nome"] = this.nome;
+    map["email"] = this.email;
+    map["endereco"] = this.endereco;
+    map["cpf"] = this.cpf;
 
-  set nome(String nome) {
-    this._nome = nome;
-  }
-
-  set email(String email) {
-    this._email = email;
-  }
-
-  set endereco(String endereco) {
-    this._endereco = endereco;
-  }
-
-  set cpf(String cpf) {
-    this._cpf = cpf;
+    return map;
   }
 
   @override
   String toString() {
     return "Hóspede: { "
-      "Nome : $_nome }";
+        "Id: $id | "
+        "Nome : $nome }";
   }
 }

@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
-import 'package:aluguel/models/imovel.dart';
 import 'package:aluguel/widgets/keyboard_input_field.dart';
+import 'package:aluguel/control/forms/imovel_form_control.dart';
 
+// ignore: must_be_immutable
 class ImovelForm extends StatelessWidget {
   final _formKey = GlobalKey<FormBuilderState>();
+
+  ImovelFormControl _control;
+
+  ImovelForm(){
+    _control = ImovelFormControl(_formKey);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,12 +34,13 @@ class ImovelForm extends StatelessWidget {
                   validations: [
                     FormBuilderValidators.required(context),
                   ],
+                  onChanged: (val) => _control.onChange("local", val),
                 ),
                 Row(
                   children: [
                     Expanded(
                       child: KeyboardInputField(
-                        "hospedes",
+                        "max_hospedes",
                         label: "Hóspedes",
                         icon: Icons.account_circle,
                         keyboardType: TextInputType.number,
@@ -41,11 +49,12 @@ class ImovelForm extends StatelessWidget {
                           FormBuilderValidators.integer(context),
                           FormBuilderValidators.min(context, 1),
                         ],
+                        onChanged: (val) => _control.onChange("max_hospedes", int.parse(val)),
                       ),
                     ),
                     Expanded(
                       child: KeyboardInputField(
-                        "tarifa",
+                        "tarifa_padrao",
                         label: "Tarifa",
                         icon: Icons.attach_money,
                         prefix: "R\$ ",
@@ -55,6 +64,7 @@ class ImovelForm extends StatelessWidget {
                           FormBuilderValidators.numeric(context),
                           FormBuilderValidators.min(context, 0),
                         ],
+                        onChanged: (val) => _control.onChange("tarifa_padrao", double.parse(val)),
                       ),
                     ),
                   ],
@@ -64,7 +74,7 @@ class ImovelForm extends StatelessWidget {
                   children: [
                     Expanded(
                       child: KeyboardInputField(
-                        "semana",
+                        "desconto_semana",
                         label: "Semana",
                         icon: Icons.calendar_today_outlined,
                         suffix: "%",
@@ -75,11 +85,12 @@ class ImovelForm extends StatelessWidget {
                           FormBuilderValidators.min(context, 0),
                           FormBuilderValidators.max(context, 100),
                         ],
+                        onChanged: (val) => _control.onChange("desconto_semana", double.parse(val)),
                       ),
                     ),
                     Expanded(
                       child: KeyboardInputField(
-                        "mes",
+                        "desconto_mes",
                         label: "Mês",
                         icon: Icons.calendar_today,
                         suffix: "%",
@@ -90,12 +101,13 @@ class ImovelForm extends StatelessWidget {
                           FormBuilderValidators.min(context, 0),
                           FormBuilderValidators.max(context, 100),
                         ],
+                        onChanged: (val) => _control.onChange("desconto_mes", double.parse(val)),
                       ),
                     ),
                   ],
                 ),
                 ElevatedButton(
-                  onPressed: cadastrarImovel,
+                  onPressed: _control.cadastrarImovel,
                   child: Text("Cadastrar"),
                 )
               ],
@@ -104,13 +116,5 @@ class ImovelForm extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Imovel cadastrarImovel() {
-    if (_formKey.currentState.validate()) {
-      _formKey.currentState.save();
-      print(_formKey.currentState.value);
-    }
-    return null;
   }
 }

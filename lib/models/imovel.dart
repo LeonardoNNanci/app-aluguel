@@ -1,63 +1,53 @@
-class Imovel {
-  String _local;
-  int _maxHospedes;
-  double _tarifaPadrao;
-  double _descontoSemana;
-  double _descontoMes;
+import 'package:aluguel/models/abstract_model.dart';
+
+class Imovel extends AbstractModel {
+  String local;
+  int maxHospedes;
+  double tarifaPadrao;
+  double descontoSemana;
+  double descontoMes;
+
+  @override
+  String table = 'imovel';
 
   Imovel(
-    this._local,
-    this._maxHospedes,
-    this._tarifaPadrao,
-    this._descontoSemana,
-    this._descontoMes,
-  );
+    this.local,
+    this.maxHospedes,
+    this.tarifaPadrao,
+    this.descontoSemana,
+    this.descontoMes, {
+    id,
+  }) : super(id);
 
-  String get local {
-    return this._local;
+  Imovel.fromMap(Map<String, dynamic> map) : super.fromMap(map) {
+    this.local = map["local"];
+    this.maxHospedes =  map["max_hospedes"];
+    this.tarifaPadrao = map["tarifa_padrao"];
+    this.descontoSemana = map["desconto_semana"];
+    this.descontoMes = map["desconto_mes"];
   }
 
-  int get maxHospedes {
-    return this._maxHospedes;
-  }
+  @override
+  Map<String, dynamic> toMap() {
+    final Map<String, dynamic> map = Map();
 
-  double get tarifaPadrao {
-    return this._tarifaPadrao;
-  }
+    if (this.id != null) map["id"] = this.id;
 
-  double get descontoSemana {
-    return this._descontoSemana;
-  }
+    map["local"] = this.local;
+    map["max_hospedes"] = this.maxHospedes;
+    map["tarifa_padrao"] = this.tarifaPadrao;
+    map["desconto_semana"] = this.descontoSemana;
+    map["desconto_mes"] = this.descontoMes;
 
-  double get descontoMes {
-    return this._descontoMes;
-  }
-
-  set local(String local) {
-    this._local = local;
-  }
-
-  set maxHospedes(int maxHospedes) {
-    this._maxHospedes = maxHospedes;
-  }
-
-  set tarifaPadrao(double tarifaPadrao) {
-    this._tarifaPadrao = tarifaPadrao;
-  }
-
-  set descontoSemana(double descontoSemana) {
-    this._descontoSemana = descontoSemana;
-  }
-
-  set descontoMes(double descontoMes) {
-    this._descontoMes = descontoMes;
+    return map;
   }
 
   @override
   String toString() {
     return "Imóvel: { "
-        "Local: $_local  |  "
-        "Hóspedes: $_maxHospedes  |  "
-        "Tarifa: $_tarifaPadrao }";
+        "Id: $id  |  "
+        "Local: $local  |  "
+        "Hóspedes: $maxHospedes  |  "
+        "Tarifa: $tarifaPadrao }";
   }
 }

@@ -1,4 +1,4 @@
-import 'package:aluguel/daos/imovel_dao.dart';
+import 'package:aluguel/daos/implementations/imovel_dao.dart';
 import 'package:aluguel/models/imovel.dart';
 
 class ImovelService {

@@ -1,4 +1,4 @@
-import 'package:aluguel/daos/hospede_dao.dart';
+import 'package:aluguel/daos/implementations/hospede_dao.dart';
 import 'package:aluguel/models/hospede.dart';
 
 class HospedeService{

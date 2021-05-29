@@ -1,5 +1,4 @@
 import 'package:aluguel/models/abstract_model.dart';
-import 'package:aluguel/util/parse_maybe.dart';
 
 class Despesa extends AbstractModel {
   String servico;
@@ -15,8 +14,8 @@ class Despesa extends AbstractModel {
 
   Despesa.fromMap(Map<String, dynamic> map) : super.fromMap(map) {
     this.servico = map["servico"];
-    this.valor = parseMaybe<double>(map["valor"]);
-    this.imovelId = parseMaybe<int>(map["imovel_id"]);
+    this.valor = map["valor"];
+    this.imovelId = map["imovel_id"];
   }
 
   @override

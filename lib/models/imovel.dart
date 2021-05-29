@@ -1,5 +1,4 @@
 import 'package:aluguel/models/abstract_model.dart';
-import 'package:aluguel/util/parse_maybe.dart';
 
 class Imovel extends AbstractModel {
   String local;
@@ -22,10 +21,10 @@ class Imovel extends AbstractModel {
 
   Imovel.fromMap(Map<String, dynamic> map) : super.fromMap(map) {
     this.local = map["local"];
-    this.maxHospedes =  parseMaybe<int>(map["max_hospedes"]);
-    this.tarifaPadrao = parseMaybe<double>(map["tarifa_padrao"]);
-    this.descontoSemana = parseMaybe<double>(map["desconto_semana"]);
-    this.descontoMes = parseMaybe<double>(map["desconto_mes"]);
+    this.maxHospedes =  map["max_hospedes"];
+    this.tarifaPadrao = map["tarifa_padrao"];
+    this.descontoSemana = map["desconto_semana"];
+    this.descontoMes = map["desconto_mes"];
   }
 
   @override

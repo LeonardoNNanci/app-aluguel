@@ -1,4 +1,4 @@
-import 'package:aluguel/daos/despesa_dao.dart';
+import 'package:aluguel/daos/implementations/despesa_dao.dart';
 import 'package:aluguel/models/despesa.dart';
 
 class DespesaService {

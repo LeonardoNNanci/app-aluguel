@@ -26,12 +26,12 @@ class Aluguel extends AbstractModel {
   Aluguel.fromMap(Map<String, dynamic> map) : super.fromMap(map) {
     this.imovelId = map["imovel_id"];
     this.hospedeId = map["hospede_id"];
-    this.checkin = map["checkin"];
-    this.checkout = map["checkout"];
+    this.checkin = DateTime.parse(map["checkin"]);
+    this.checkout = DateTime.parse(map["checkout"]);
     this.totalHospedes = map["total_hospedes"];
     this.valor = map["valor"];
     this.forma = map["forma"];
-    this.roupaDeCama = map["roupa_de_cama"];
+    this.roupaDeCama = map["roupa_de_cama"] == 1;
     this.observacao = map["observacao"];
   }
 

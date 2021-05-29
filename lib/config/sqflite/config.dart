@@ -1,7 +1,7 @@
-import 'package:aluguel/daos/aluguel_dao.dart';
-import 'package:aluguel/daos/despesa_dao.dart';
-import 'package:aluguel/daos/hospede_dao.dart';
-import 'package:aluguel/daos/imovel_dao.dart';
+import 'package:aluguel/daos/implementations/aluguel_dao.dart';
+import 'package:aluguel/daos/implementations/despesa_dao.dart';
+import 'package:aluguel/daos/implementations/hospede_dao.dart';
+import 'package:aluguel/daos/implementations/imovel_dao.dart';
 
 const String databaseFileName = "gag_database.db";
 

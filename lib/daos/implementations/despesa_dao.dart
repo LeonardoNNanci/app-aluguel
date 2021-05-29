@@ -11,6 +11,8 @@ class DespesaDao {
 
   static String get valorField => 'valor';
 
+  static String get dateField => 'date';
+
   static String get imovelField => 'imovel_id';
 
   AppDatabase database = AppDatabase();

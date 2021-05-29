@@ -3,18 +3,21 @@ import 'package:aluguel/models/abstract_model.dart';
 class Despesa extends AbstractModel {
   String servico;
   double valor;
+  DateTime date;
   int imovelId;
 
   Despesa(
     this.servico,
     this.valor,
-    this.imovelId, {
+    this.imovelId,
+    this.date, {
     id,
   }) : super(id);
 
   Despesa.fromMap(Map<String, dynamic> map) : super.fromMap(map) {
     this.servico = map["servico"];
     this.valor = map["valor"];
+    this.date = DateTime.parse(map["date"]);
     this.imovelId = map["imovel_id"];
   }
 
@@ -26,6 +29,7 @@ class Despesa extends AbstractModel {
 
     map["servico"] = this.servico;
     map["valor"] = this.valor;
+    map["date"] = this.date.toString();
     map["imovel_id"] = this.imovelId;
 
     return map;
@@ -37,6 +41,7 @@ class Despesa extends AbstractModel {
         "Id: $id  |  "
         "Servico: $servico  |  "
         "Imóvel: $imovelId  |  "
+        "Data: $date  |  "
         "Valor: $valor }";
   }
 }

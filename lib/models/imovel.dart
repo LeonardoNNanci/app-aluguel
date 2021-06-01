@@ -1,3 +1,4 @@
+import 'package:aluguel/config/sqflite/config.dart';
 import 'package:aluguel/models/abstract_model.dart';
 
 class Imovel extends AbstractModel {
@@ -7,9 +8,6 @@ class Imovel extends AbstractModel {
   double descontoSemana;
   double descontoMes;
 
-  @override
-  String table = 'imovel';
-
   Imovel(
     this.local,
     this.maxHospedes,
@@ -17,27 +15,29 @@ class Imovel extends AbstractModel {
     this.descontoSemana,
     this.descontoMes, {
     id,
-  }) : super(id);
+  }) : super(id, ImovelTable, ImovelIdField);
+
+  Imovel.empty() : super.empty(ImovelTable, ImovelIdField);
 
   Imovel.fromMap(Map<String, dynamic> map) : super.fromMap(map) {
-    this.local = map["local"];
-    this.maxHospedes =  map["max_hospedes"];
-    this.tarifaPadrao = map["tarifa_padrao"];
-    this.descontoSemana = map["desconto_semana"];
-    this.descontoMes = map["desconto_mes"];
+    this.local = map[ImovelLocalField];
+    this.maxHospedes =  map[ImovelMaxHospedesField];
+    this.tarifaPadrao = map[ImovelTarifaField];
+    this.descontoSemana = map[ImovelDescontoSemanaField];
+    this.descontoMes = map[ImovelDescontoMesField];
   }
 
   @override
   Map<String, dynamic> toMap() {
     final Map<String, dynamic> map = Map();
 
-    if (this.id != null) map["id"] = this.id;
+    if (this.id != null) map[ImovelIdField] = this.id;
 
-    map["local"] = this.local;
-    map["max_hospedes"] = this.maxHospedes;
-    map["tarifa_padrao"] = this.tarifaPadrao;
-    map["desconto_semana"] = this.descontoSemana;
-    map["desconto_mes"] = this.descontoMes;
+    map[ImovelLocalField] = this.local;
+    map[ImovelMaxHospedesField] = this.maxHospedes;
+    map[ImovelTarifaField] = this.tarifaPadrao;
+    map[ImovelDescontoSemanaField] = this.descontoSemana;
+    map[ImovelDescontoMesField] = this.descontoMes;
 
     return map;
   }
@@ -49,5 +49,10 @@ class Imovel extends AbstractModel {
         "Local: $local  |  "
         "Hóspedes: $maxHospedes  |  "
         "Tarifa: $tarifaPadrao }";
+  }
+
+  @override
+  Imovel instantiateFromMap(Map<String, dynamic> map) {
+    return Imovel.fromMap(map);
   }
 }

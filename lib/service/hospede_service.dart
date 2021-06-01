@@ -5,19 +5,19 @@ class HospedeService{
   HospedeDao _hospedeDao = HospedeDao();
 
   Future<Hospede> create(Hospede hospede) async {
-    if (hospede.id != null) return null;
+    assert(hospede.id == null);
     return await _hospedeDao.insert(hospede);
   }
 
   Future<Hospede> update(Hospede hospede) async {
-    if (hospede.id == null) return null;
-    if (await _hospedeDao.selectById(hospede.id) == null) return null;
+    assert(hospede.id != null);
+    assert(await _hospedeDao.selectById(hospede.id) != null);
     return await _hospedeDao.update(hospede);
   }
 
   Future<Hospede> remove(Hospede hospede) async {
-    if (hospede.id == null) return null;
-    if (await _hospedeDao.selectById(hospede.id) == null) return null;
+    assert(hospede.id != null);
+    assert(await _hospedeDao.selectById(hospede.id) != null);
     return await _hospedeDao.delete(hospede);
   }
 

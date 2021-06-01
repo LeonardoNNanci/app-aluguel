@@ -1,3 +1,5 @@
+import 'package:aluguel/config/sqflite/config.dart';
+import 'package:aluguel/daos/implementations/aluguel_dao.dart';
 import 'package:aluguel/models/abstract_model.dart';
 
 class Aluguel extends AbstractModel {
@@ -21,35 +23,37 @@ class Aluguel extends AbstractModel {
       this.roupaDeCama,
       this.observacao,
       {id})
-      : super(id);
+      : super(id, AluguelTable, AluguelIdField);
+
+  Aluguel.empty() : super.empty(AluguelTable, AluguelIdField);
 
   Aluguel.fromMap(Map<String, dynamic> map) : super.fromMap(map) {
-    this.imovelId = map["imovel_id"];
-    this.hospedeId = map["hospede_id"];
-    this.checkin = DateTime.parse(map["checkin"]);
-    this.checkout = DateTime.parse(map["checkout"]);
-    this.totalHospedes = map["total_hospedes"];
-    this.valor = map["valor"];
-    this.forma = map["forma"];
-    this.roupaDeCama = map["roupa_de_cama"] == 1;
-    this.observacao = map["observacao"];
+    this.imovelId = map[AluguelImovelField];
+    this.hospedeId = map[AluguelHospedeField];
+    this.checkin = DateTime.parse(map[AluguelCheckinField]);
+    this.checkout = DateTime.parse(map[AluguelCheckoutField]);
+    this.totalHospedes = map[AluguelHospedeField];
+    this.valor = map[AluguelValorField];
+    this.forma = map[AluguelFormaField];
+    this.roupaDeCama = map[AluguelRoupaDeCamaField] == 1;
+    this.observacao = map[AluguelObservacaoField];
   }
 
   @override
   Map<String, dynamic> toMap() {
     final Map<String, dynamic> map = Map();
 
-    if (this.id != null) map["id"] = this.id;
+    if (this.id != null) map[AluguelIdField] = this.id;
 
-    map["imovel_id"] = this.imovelId;
-    map["hospede_id"] = this.hospedeId;
-    map["checkin"] = this.checkin.toString();
-    map["checkout"] = this.checkout.toString();
-    map["total_hospedes"] = this.totalHospedes;
-    map["valor"] = this.valor;
-    map["forma"] = this.forma;
-    map["roupa_de_cama"] = this.roupaDeCama.toString();
-    map["observacao"] = this.observacao;
+    map[AluguelImovelField] = this.imovelId;
+    map[AluguelHospedeField] = this.hospedeId;
+    map[AluguelCheckinField] = this.checkin.toString();
+    map[AluguelCheckoutField] = this.checkout.toString();
+    map[AluguelHospedeField] = this.totalHospedes;
+    map[AluguelValorField] = this.valor;
+    map[AluguelFormaField] = this.forma;
+    map[AluguelRoupaDeCamaField] = this.roupaDeCama.toString();
+    map[AluguelObservacaoField] = this.observacao;
 
     return map;
   }
@@ -64,5 +68,10 @@ class Aluguel extends AbstractModel {
         "Checkout: $checkout  |  "
         "Total de hóspedes: $totalHospedes  |  "
         "Valor: $valor }";
+  }
+
+  @override
+  Aluguel instantiateFromMap(Map<String, dynamic> map) {
+    return Aluguel.fromMap(map);
   }
 }

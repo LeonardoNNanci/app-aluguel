@@ -1,3 +1,4 @@
+import 'package:aluguel/config/sqflite/config.dart';
 import 'package:aluguel/models/abstract_model.dart';
 
 class Despesa extends AbstractModel {
@@ -12,25 +13,27 @@ class Despesa extends AbstractModel {
     this.imovelId,
     this.date, {
     id,
-  }) : super(id);
+  }) : super(id, DespesaTable, DespesaIdField);
+
+  Despesa.empty() : super.empty(DespesaTable, DespesaIdField);
 
   Despesa.fromMap(Map<String, dynamic> map) : super.fromMap(map) {
-    this.servico = map["servico"];
-    this.valor = map["valor"];
-    this.date = DateTime.parse(map["date"]);
-    this.imovelId = map["imovel_id"];
+    this.servico = map[DespesaServicoField];
+    this.valor = map[DespesaValorField];
+    this.date = DateTime.parse(map[DespesaDateField]);
+    this.imovelId = map[DespesaImovelField];
   }
 
   @override
   Map<String, dynamic> toMap() {
     final Map<String, dynamic> map = Map();
 
-    if (this.id != null) map["id"] = this.id;
+    if (this.id != null) map[DespesaIdField] = this.id;
 
-    map["servico"] = this.servico;
-    map["valor"] = this.valor;
-    map["date"] = this.date.toString();
-    map["imovel_id"] = this.imovelId;
+    map[DespesaServicoField] = this.servico;
+    map[DespesaValorField] = this.valor;
+    map[DespesaDateField] = this.date.toString();
+    map[DespesaImovelField] = this.imovelId;
 
     return map;
   }
@@ -43,5 +46,10 @@ class Despesa extends AbstractModel {
         "Imóvel: $imovelId  |  "
         "Data: $date  |  "
         "Valor: $valor }";
+  }
+
+  @override
+  Despesa instantiateFromMap(Map<String, dynamic> map) {
+    return Despesa.fromMap(map);
   }
 }

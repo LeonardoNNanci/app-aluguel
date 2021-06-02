@@ -107,7 +107,7 @@ class ImovelForm extends StatelessWidget {
                   ],
                 ),
                 ElevatedButton(
-                  onPressed: _control.cadastrarImovel,
+                  onPressed: _control.submit,
                   child: Text("Cadastrar"),
                 )
               ],

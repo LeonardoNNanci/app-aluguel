@@ -1,23 +1,16 @@
 import 'package:aluguel/models/imovel.dart';
 import 'package:aluguel/service/imovel_service.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
 
-class ImovelFormControl {
+import 'generic_form_control.dart';
+
+class ImovelFormControl extends FormControl{
   ImovelService _service = ImovelService();
-  final GlobalKey<FormBuilderState> _formKey;
 
-  Map<String, dynamic> _formData = Map<String, dynamic>();
+  ImovelFormControl(formKey) : super(formKey);
 
-  ImovelFormControl(this._formKey);
-
-  void onChange(String key, dynamic val) {
-    _formData[key] = val;
-  }
-
-  Imovel cadastrarImovel() {
-    if (_formKey.currentState.validate()) {
-      final imovel = Imovel.fromMap(_formData);
+  Imovel submit() {
+    if (formKey.currentState.validate()) {
+      final imovel = Imovel.fromMap(formData);
       _service.create(imovel).then((value) => print(value));
     }
     return null;

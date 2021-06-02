@@ -64,7 +64,7 @@ class HospedeForm extends StatelessWidget {
                   onChanged: (val) => _control.onChange("endereco", val),
                 ),
                 ElevatedButton(
-                  onPressed: _control.registerHospede,
+                  onPressed: _control.submit,
                   child: Text("Cadastrar"),
                 )
               ],

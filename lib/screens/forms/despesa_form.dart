@@ -113,7 +113,7 @@ class DespesaForm extends StatelessWidget {
                   ],
                 ),
                 ElevatedButton(
-                  onPressed: _control.registerDespesa,
+                  onPressed: _control.submit,
                   child: Text("Cadastrar"),
                 ),
               ],

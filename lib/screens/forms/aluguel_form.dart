@@ -194,7 +194,7 @@ class AluguelForm extends StatelessWidget {
                   onChanged: (val) => _control.onChange("observacao", val),
                 ),
                 ElevatedButton(
-                  onPressed: () => _control.registerAluguel(),
+                  onPressed: () => _control.submit,
                   child: Text("Cadastrar"),
                 ),
               ],

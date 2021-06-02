@@ -26,4 +26,8 @@ class Service<T extends AbstractModel>{
   Future<List<T>> getAll() async {
     return await _dao.selectAll();
   }
+
+  Future<T> getById(int id) async {
+    return await _dao.selectById(id);
+  }
 }

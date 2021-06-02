@@ -44,9 +44,4 @@ class Hospede extends AbstractModel {
         "Id: $id | "
         "Nome : $nome }";
   }
-
-  @override
-  Hospede instantiateFromMap(Map<String, dynamic> map) {
-    return Hospede.fromMap(map);
-  }
 }

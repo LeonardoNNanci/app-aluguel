@@ -21,7 +21,7 @@ class Imovel extends AbstractModel {
 
   Imovel.fromMap(Map<String, dynamic> map) : super.fromMap(map) {
     this.local = map[ImovelLocalField];
-    this.maxHospedes =  map[ImovelMaxHospedesField];
+    this.maxHospedes = map[ImovelMaxHospedesField];
     this.tarifaPadrao = map[ImovelTarifaField];
     this.descontoSemana = map[ImovelDescontoSemanaField];
     this.descontoMes = map[ImovelDescontoMesField];
@@ -49,10 +49,5 @@ class Imovel extends AbstractModel {
         "Local: $local  |  "
         "Hóspedes: $maxHospedes  |  "
         "Tarifa: $tarifaPadrao }";
-  }
-
-  @override
-  Imovel instantiateFromMap(Map<String, dynamic> map) {
-    return Imovel.fromMap(map);
   }
 }

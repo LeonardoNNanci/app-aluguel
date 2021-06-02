@@ -1,5 +1,4 @@
 import 'package:aluguel/config/sqflite/config.dart';
-import 'package:aluguel/daos/implementations/aluguel_dao.dart';
 import 'package:aluguel/models/abstract_model.dart';
 
 class Aluguel extends AbstractModel {
@@ -68,10 +67,5 @@ class Aluguel extends AbstractModel {
         "Checkout: $checkout  |  "
         "Total de hóspedes: $totalHospedes  |  "
         "Valor: $valor }";
-  }
-
-  @override
-  Aluguel instantiateFromMap(Map<String, dynamic> map) {
-    return Aluguel.fromMap(map);
   }
 }

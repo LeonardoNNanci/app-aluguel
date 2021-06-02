@@ -47,9 +47,4 @@ class Despesa extends AbstractModel {
         "Data: $date  |  "
         "Valor: $valor }";
   }
-
-  @override
-  Despesa instantiateFromMap(Map<String, dynamic> map) {
-    return Despesa.fromMap(map);
-  }
 }

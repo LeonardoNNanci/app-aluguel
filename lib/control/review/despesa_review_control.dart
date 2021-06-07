@@ -8,13 +8,13 @@ import 'generic_review_control.dart';
 class DespesaReviewControl extends ReviewControl {
 
   final imovelService = ImovelService();
-  final Despesa _despesa;
+  final Despesa despesa;
 
-  DespesaReviewControl(this._despesa)
-      : super(DespesaService(), Placeholder(), _despesa);
+  DespesaReviewControl(this.despesa)
+      : super(DespesaService(), Placeholder(), despesa);
 
   Future<String> getImovelName() async {
-    final imovel = await imovelService.getById(_despesa.imovelId);
+    final imovel = await imovelService.getById(despesa.imovelId);
     return imovel.local;
   }
 }

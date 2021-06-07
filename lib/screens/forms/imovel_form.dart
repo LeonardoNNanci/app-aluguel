@@ -6,18 +6,13 @@ import 'package:aluguel/control/forms/imovel_form_control.dart';
 
 // ignore: must_be_immutable
 class ImovelForm extends StatelessWidget {
-  final _formKey = GlobalKey<FormBuilderState>();
 
-  ImovelFormControl _control;
-
-  ImovelForm(){
-    _control = ImovelFormControl(_formKey);
-  }
+  final _control = ImovelFormControl();
 
   @override
   Widget build(BuildContext context) {
     return FormBuilder(
-      key: _formKey,
+      key: _control.formKey,
       child: Scaffold(
         appBar: AppBar(
           title: Text("Novo Imovel"),
@@ -49,7 +44,8 @@ class ImovelForm extends StatelessWidget {
                           FormBuilderValidators.integer(context),
                           FormBuilderValidators.min(context, 1),
                         ],
-                        onChanged: (val) => _control.onChange("max_hospedes", int.parse(val)),
+                        onChanged: (val) =>
+                            _control.onChange("max_hospedes", int.parse(val)),
                       ),
                     ),
                     Expanded(
@@ -64,7 +60,8 @@ class ImovelForm extends StatelessWidget {
                           FormBuilderValidators.numeric(context),
                           FormBuilderValidators.min(context, 0),
                         ],
-                        onChanged: (val) => _control.onChange("tarifa_padrao", double.parse(val)),
+                        onChanged: (val) => _control.onChange(
+                            "tarifa_padrao", double.parse(val)),
                       ),
                     ),
                   ],
@@ -85,7 +82,8 @@ class ImovelForm extends StatelessWidget {
                           FormBuilderValidators.min(context, 0),
                           FormBuilderValidators.max(context, 100),
                         ],
-                        onChanged: (val) => _control.onChange("desconto_semana", double.parse(val)),
+                        onChanged: (val) => _control.onChange(
+                            "desconto_semana", double.parse(val)),
                       ),
                     ),
                     Expanded(
@@ -101,7 +99,8 @@ class ImovelForm extends StatelessWidget {
                           FormBuilderValidators.min(context, 0),
                           FormBuilderValidators.max(context, 100),
                         ],
-                        onChanged: (val) => _control.onChange("desconto_mes", double.parse(val)),
+                        onChanged: (val) => _control.onChange(
+                            "desconto_mes", double.parse(val)),
                       ),
                     ),
                   ],

@@ -12,7 +12,7 @@ class AluguelFormControl extends FormControl{
   HospedeService _hospedeService = HospedeService();
   AluguelService _aluguelService = AluguelService();
 
-  AluguelFormControl(formKey) : super(formKey);
+  AluguelFormControl();
 
   Future<List<Imovel>> getImoveis() async {
     return await _imovelService.getAll();

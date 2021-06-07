@@ -6,7 +6,7 @@ import 'generic_form_control.dart';
 class ImovelFormControl extends FormControl{
   ImovelService _service = ImovelService();
 
-  ImovelFormControl(formKey) : super(formKey);
+  ImovelFormControl();
 
   Imovel submit() {
     if (formKey.currentState.validate()) {

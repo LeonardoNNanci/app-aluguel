@@ -6,7 +6,7 @@ import 'generic_form_control.dart';
 class HospedeFormControl extends FormControl {
   HospedeService _service = HospedeService();
 
-  HospedeFormControl(formKey) : super(formKey);
+  HospedeFormControl();
 
   Hospede submit(){
     if (formKey.currentState.validate()) {

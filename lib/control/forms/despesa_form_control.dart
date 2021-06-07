@@ -9,7 +9,7 @@ class DespesaFormControl extends FormControl {
   DespesaService _despesaService = DespesaService();
   ImovelService _imovelService = ImovelService();
 
-  DespesaFormControl(formKey) : super(formKey);
+  DespesaFormControl();
 
   Future<List<Imovel>> getImoveis() async {
     return await _imovelService.getAll();

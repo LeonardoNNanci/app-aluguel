@@ -9,13 +9,7 @@ import 'package:aluguel/widgets/keyboard_input_field.dart';
 
 // ignore: must_be_immutable
 class DespesaForm extends StatelessWidget {
-  final _formKey = GlobalKey<FormBuilderState>();
-
-  DespesaFormControl _control;
-
-  DespesaForm() {
-    _control = DespesaFormControl(_formKey);
-  }
+  final _control = DespesaFormControl();
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +21,7 @@ class DespesaForm extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: FormBuilder(
-            key: _formKey,
+            key: _control.formKey,
             child: Column(
               children: [
                 KeyboardInputField(

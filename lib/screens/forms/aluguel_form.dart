@@ -8,13 +8,7 @@ import 'package:intl/intl.dart' as intl;
 
 // ignore: must_be_immutable
 class AluguelForm extends StatelessWidget {
-  final _formKey = GlobalKey<FormBuilderState>();
-
-  AluguelFormControl _control;
-
-  AluguelForm() {
-    _control = AluguelFormControl(_formKey);
-  }
+  final _control = AluguelFormControl();
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +20,7 @@ class AluguelForm extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: FormBuilder(
-            key: _formKey,
+            key: _control.formKey,
             child: Column(
               children: [
                 Padding(
@@ -46,10 +40,11 @@ class AluguelForm extends StatelessWidget {
                             return FormBuilderDropdown(
                               name: "imovel_id",
                               items: snapshot.data
-                                  .map<DropdownMenuItem>((e) => DropdownMenuItem(
-                                        child: Text(e.local),
-                                        value: e.id,
-                                      ))
+                                  .map<DropdownMenuItem>(
+                                      (e) => DropdownMenuItem(
+                                            child: Text(e.local),
+                                            value: e.id,
+                                          ))
                                   .toList(),
                               validator: FormBuilderValidators.compose([
                                 FormBuilderValidators.required(context),
@@ -58,7 +53,8 @@ class AluguelForm extends StatelessWidget {
                                 labelText: "Imóvel",
                                 icon: Icon(Icons.home_work),
                               ),
-                              onChanged: (val) => _control.onChange("imovel_id", val),
+                              onChanged: (val) =>
+                                  _control.onChange("imovel_id", val),
                             );
                             break;
                         }
@@ -82,10 +78,11 @@ class AluguelForm extends StatelessWidget {
                             return FormBuilderDropdown(
                               name: "hospede_id",
                               items: snapshot.data
-                                  .map<DropdownMenuItem>((e) => DropdownMenuItem(
-                                        child: Text(e.nome),
-                                        value: e.id,
-                                      ))
+                                  .map<DropdownMenuItem>(
+                                      (e) => DropdownMenuItem(
+                                            child: Text(e.nome),
+                                            value: e.id,
+                                          ))
                                   .toList(),
                               validator: FormBuilderValidators.compose([
                                 FormBuilderValidators.required(context),
@@ -93,7 +90,8 @@ class AluguelForm extends StatelessWidget {
                               decoration: InputDecoration(
                                   labelText: "Hóspede",
                                   icon: Icon(Icons.person)),
-                              onChanged: (val) => _control.onChange("hospede_id", val),
+                              onChanged: (val) =>
+                                  _control.onChange("hospede_id", val),
                             );
                             break;
                         }
@@ -130,7 +128,8 @@ class AluguelForm extends StatelessWidget {
                           FormBuilderValidators.integer(context),
                           FormBuilderValidators.min(context, 1),
                         ],
-                        onChanged: (val) => _control.onChange("total_hospedes", int.parse(val)),
+                        onChanged: (val) =>
+                            _control.onChange("total_hospedes", int.parse(val)),
                       ),
                     ),
                     Expanded(
@@ -144,7 +143,8 @@ class AluguelForm extends StatelessWidget {
                           FormBuilderValidators.numeric(context),
                           FormBuilderValidators.min(context, 0),
                         ],
-                        onChanged: (val) => _control.onChange("valor", double.parse(val)),
+                        onChanged: (val) =>
+                            _control.onChange("valor", double.parse(val)),
                       ),
                     ),
                   ],

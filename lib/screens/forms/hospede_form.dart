@@ -6,12 +6,7 @@ import 'package:aluguel/control/forms/hospede_form_control.dart';
 
 // ignore: must_be_immutable
 class HospedeForm extends StatelessWidget {
-  final _formKey = GlobalKey<FormBuilderState>();
-  HospedeFormControl _control;
-
-  HospedeForm() {
-    _control = HospedeFormControl(_formKey);
-  }
+  final _control = HospedeFormControl();
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +18,7 @@ class HospedeForm extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: FormBuilder(
-            key: _formKey,
+            key: _control.formKey,
             child: Column(
               children: [
                 KeyboardInputField(

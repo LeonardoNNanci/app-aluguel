@@ -19,7 +19,8 @@ class Imovel extends AbstractModel {
 
   Imovel.empty() : super.empty(ImovelTable, ImovelIdField);
 
-  Imovel.fromMap(Map<String, dynamic> map) : super.fromMap(map) {
+  Imovel.fromMap(Map<String, dynamic> map)
+      : super.fromMap(map, ImovelTable, ImovelIdField) {
     this.local = map[ImovelLocalField];
     this.maxHospedes = map[ImovelMaxHospedesField];
     this.tarifaPadrao = map[ImovelTarifaField];

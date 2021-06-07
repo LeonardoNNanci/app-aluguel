@@ -17,7 +17,8 @@ class Despesa extends AbstractModel {
 
   Despesa.empty() : super.empty(DespesaTable, DespesaIdField);
 
-  Despesa.fromMap(Map<String, dynamic> map) : super.fromMap(map) {
+  Despesa.fromMap(Map<String, dynamic> map)
+      : super.fromMap(map, DespesaTable, DespesaIdField) {
     this.servico = map[DespesaServicoField];
     this.valor = map[DespesaValorField];
     this.date = DateTime.parse(map[DespesaDateField]);

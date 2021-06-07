@@ -10,7 +10,7 @@ abstract class AbstractModel {
   AbstractModel.empty(this.table, this.idField);
 
   @mustCallSuper
-  AbstractModel.fromMap(Map<String, dynamic> map) {
+  AbstractModel.fromMap(Map<String, dynamic> map, this.table, this.idField) {
     this.id = map["id"];
   }
 

@@ -26,7 +26,8 @@ class Aluguel extends AbstractModel {
 
   Aluguel.empty() : super.empty(AluguelTable, AluguelIdField);
 
-  Aluguel.fromMap(Map<String, dynamic> map) : super.fromMap(map) {
+  Aluguel.fromMap(Map<String, dynamic> map)
+      : super.fromMap(map, AluguelTable, AluguelIdField) {
     this.imovelId = map[AluguelImovelField];
     this.hospedeId = map[AluguelHospedeField];
     this.checkin = DateTime.parse(map[AluguelCheckinField]);

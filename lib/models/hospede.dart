@@ -17,7 +17,8 @@ class Hospede extends AbstractModel {
 
   Hospede.empty() : super.empty(HospedeTable, HospedeIdField);
 
-  Hospede.fromMap(Map<String, dynamic> map) : super.fromMap(map) {
+  Hospede.fromMap(Map<String, dynamic> map)
+      : super.fromMap(map, HospedeTable, HospedeIdField) {
     this.nome = map[HospedeNomeField];
     this.email = map[HospedeEmailField];
     this.endereco = map[HospedeEnderecoField];

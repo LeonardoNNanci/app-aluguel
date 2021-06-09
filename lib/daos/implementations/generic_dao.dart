@@ -3,7 +3,6 @@ import 'package:aluguel/models/abstract_model.dart';
 import 'package:sqflite/sqflite.dart';
 
 abstract class GenericDao<T extends AbstractModel> {
-
   T Function() _creatorEmpty;
   T Function(Map<String, dynamic> map) _creatorFromMap;
 
@@ -19,13 +18,15 @@ abstract class GenericDao<T extends AbstractModel> {
 
   Future<T> update(T value) async {
     Database db = await database.instance;
-    await db.update(value.table, value.toMap(), where: "${value.idField}=?");
+    await db.update(value.table, value.toMap(),
+        where: "${value.idField}=?", whereArgs: [value.id]);
     return value;
   }
 
   Future<T> delete(T value) async {
     Database db = await database.instance;
-    await db.delete(value.table, where: "${value.idField}=?", whereArgs: [value.id]);
+    await db.delete(value.table,
+        where: "${value.idField}=?", whereArgs: [value.id]);
     return value;
   }
 
@@ -39,10 +40,9 @@ abstract class GenericDao<T extends AbstractModel> {
   Future<T> selectById(int id) async {
     Database db = await database.instance;
     final generic = _creatorEmpty();
-    List<Map<String, dynamic>> map =
-    await db.query(generic.table, where: "${generic.idField}=?", whereArgs: [id]);
+    List<Map<String, dynamic>> map = await db
+        .query(generic.table, where: "${generic.idField}=?", whereArgs: [id]);
     if (map.isEmpty) return null;
     return _creatorFromMap(map[0]);
   }
-
 }

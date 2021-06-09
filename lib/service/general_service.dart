@@ -2,32 +2,32 @@ import 'package:aluguel/daos/implementations/generic_dao.dart';
 import 'package:aluguel/models/abstract_model.dart';
 
 class Service<T extends AbstractModel>{
-  final GenericDao _dao;
+  final GenericDao dao;
 
-  Service(this._dao);
+  Service(this.dao);
 
   Future<T> create(T item) async {
     assert(item.id == null);
-    return await _dao.insert(item);
+    return await dao.insert(item);
   }
 
   Future<T> update(T item) async {
     assert(item.id != null);
-    if (await _dao.selectById(item.id) == null) return null;
-    return await _dao.update(item);
+    if (await dao.selectById(item.id) == null) return null;
+    return await dao.update(item);
   }
 
   Future<T> remove(T item) async {
     if (item.id == null) return null;
-    if (await _dao.selectById(item.id) == null) return null;
-    return await _dao.delete(item);
+    if (await dao.selectById(item.id) == null) return null;
+    return await dao.delete(item);
   }
 
   Future<List<T>> getAll() async {
-    return await _dao.selectAll();
+    return await dao.selectAll();
   }
 
   Future<T> getById(int id) async {
-    return await _dao.selectById(id);
+    return await dao.selectById(id);
   }
 }

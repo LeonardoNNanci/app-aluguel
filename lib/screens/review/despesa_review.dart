@@ -4,6 +4,7 @@ import 'package:aluguel/widgets/feedback/error_feedback.dart';
 import 'package:aluguel/widgets/feedback/loading_feedback.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class DespesaReview extends StatelessWidget {
   DespesaReviewControl _control;
 
@@ -14,12 +15,11 @@ class DespesaReview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ReviewScreen(
-      title: 'Despesa',
+      title: _control.despesa.servico,
       control: _control,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Despesa: ${_control.despesa.servico}"),
           FutureBuilder(
             future: _control.getImovelName(),
             builder: (context, snapshot) {

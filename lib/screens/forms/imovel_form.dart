@@ -1,3 +1,7 @@
+import 'package:aluguel/util/custom_to_string.dart';
+import 'package:aluguel/util/custom_to_string.dart';
+import 'package:aluguel/util/custom_to_string.dart';
+import 'package:aluguel/util/custom_to_string.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
@@ -6,8 +10,11 @@ import 'package:aluguel/control/forms/imovel_form_control.dart';
 
 // ignore: must_be_immutable
 class ImovelForm extends StatelessWidget {
+  ImovelFormControl _control;
 
-  final _control = ImovelFormControl();
+  ImovelForm({imovel}) {
+    _control = ImovelFormControl(imovel);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +32,7 @@ class ImovelForm extends StatelessWidget {
                 KeyboardInputField(
                   "local",
                   label: "Local",
+                  initialValue: _control.initialValue("local"),
                   icon: Icons.place,
                   validations: [
                     FormBuilderValidators.required(context),
@@ -37,6 +45,8 @@ class ImovelForm extends StatelessWidget {
                       child: KeyboardInputField(
                         "max_hospedes",
                         label: "Hóspedes",
+                        initialValue: toStringOrNull(
+                            _control.initialValue("max_hospedes")),
                         icon: Icons.account_circle,
                         keyboardType: TextInputType.number,
                         validations: [
@@ -52,6 +62,8 @@ class ImovelForm extends StatelessWidget {
                       child: KeyboardInputField(
                         "tarifa_padrao",
                         label: "Tarifa",
+                        initialValue: toStringOrNull(
+                            _control.initialValue("tarifa_padrao")),
                         icon: Icons.attach_money,
                         prefix: "R\$ ",
                         keyboardType: TextInputType.number,
@@ -73,6 +85,8 @@ class ImovelForm extends StatelessWidget {
                       child: KeyboardInputField(
                         "desconto_semana",
                         label: "Semana",
+                        initialValue: toStringOrNull(
+                            _control.initialValue("desconto_semana")),
                         icon: Icons.calendar_today_outlined,
                         suffix: "%",
                         keyboardType: TextInputType.number,
@@ -90,6 +104,8 @@ class ImovelForm extends StatelessWidget {
                       child: KeyboardInputField(
                         "desconto_mes",
                         label: "Mês",
+                        initialValue: toStringOrNull(
+                            _control.initialValue("desconto_mes")),
                         icon: Icons.calendar_today,
                         suffix: "%",
                         keyboardType: TextInputType.number,

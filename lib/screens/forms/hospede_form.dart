@@ -6,7 +6,11 @@ import 'package:aluguel/control/forms/hospede_form_control.dart';
 
 // ignore: must_be_immutable
 class HospedeForm extends StatelessWidget {
-  final _control = HospedeFormControl();
+  HospedeFormControl _control;
+
+  HospedeForm({hospede}) {
+    _control = HospedeFormControl(hospede);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +28,7 @@ class HospedeForm extends StatelessWidget {
                 KeyboardInputField(
                   "nome",
                   label: "Nome",
+                  initialValue: _control.initialValue("nome"),
                   icon: Icons.person,
                   validations: [
                     FormBuilderValidators.required(context),
@@ -33,6 +38,7 @@ class HospedeForm extends StatelessWidget {
                 KeyboardInputField(
                   "cpf",
                   label: "CPF",
+                  initialValue: _control.initialValue("cpf"),
                   icon: Icons.fingerprint,
                   validations: [
                     FormBuilderValidators.required(context),
@@ -42,6 +48,7 @@ class HospedeForm extends StatelessWidget {
                 KeyboardInputField(
                   "email",
                   label: "E-mail",
+                  initialValue: _control.initialValue("email"),
                   icon: Icons.email,
                   validations: [
                     FormBuilderValidators.required(context),
@@ -52,6 +59,7 @@ class HospedeForm extends StatelessWidget {
                 KeyboardInputField(
                   "endereco",
                   label: "Endereço",
+                  initialValue: _control.initialValue("endereco"),
                   icon: Icons.home_work,
                   validations: [
                     FormBuilderValidators.required(context),

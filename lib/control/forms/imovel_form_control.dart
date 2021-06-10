@@ -3,15 +3,24 @@ import 'package:aluguel/service/imovel_service.dart';
 
 import 'generic_form_control.dart';
 
-class ImovelFormControl extends FormControl{
-  ImovelService _service = ImovelService();
+class ImovelFormControl extends FormControl {
+  ImovelFormControl(Imovel imovel) : super(ImovelService(), item: imovel) {
+    if (imovel != null) {
+      formData["id"] = imovel.id;
+      formData["local"] = imovel.local;
+      formData["max_hospedes"] = imovel.maxHospedes;
+      formData["tarifa_padrao"] = imovel.tarifaPadrao;
+      formData["desconto_semana"] = imovel.descontoSemana;
+      formData["desconto_mes"] = imovel.descontoMes;
+    }
+  }
 
-  ImovelFormControl();
+  Imovel get imovel => item;
 
   Imovel submit() {
     if (formKey.currentState.validate()) {
-      final imovel = Imovel.fromMap(formData);
-      _service.create(imovel).then((value) => print(value));
+      item = Imovel.fromMap(formData);
+      super.submit();
     }
     return null;
   }

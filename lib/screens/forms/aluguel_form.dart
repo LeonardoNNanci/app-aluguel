@@ -1,4 +1,5 @@
 import 'package:aluguel/control/forms/aluguel_form_control.dart';
+import 'package:aluguel/util/custom_to_string.dart';
 import 'package:aluguel/widgets/feedback/error_feedback.dart';
 import 'package:aluguel/widgets/feedback/loading_feedback.dart';
 import 'package:aluguel/widgets/keyboard_input_field.dart';
@@ -8,7 +9,11 @@ import 'package:intl/intl.dart' as intl;
 
 // ignore: must_be_immutable
 class AluguelForm extends StatelessWidget {
-  final _control = AluguelFormControl();
+  AluguelFormControl _control;
+
+  AluguelForm({aluguel}) {
+    _control = AluguelFormControl(aluguel);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,11 +42,12 @@ class AluguelForm extends StatelessWidget {
                           case ConnectionState.active:
                             break;
                           case ConnectionState.done:
-                            return FormBuilderDropdown(
+                            return FormBuilderDropdown<int>(
                               name: "imovel_id",
+                              initialValue: _control.initialValue("imovel_id"),
                               items: snapshot.data
-                                  .map<DropdownMenuItem>(
-                                      (e) => DropdownMenuItem(
+                                  .map<DropdownMenuItem<int>>(
+                                      (e) => DropdownMenuItem<int>(
                                             child: Text(e.local),
                                             value: e.id,
                                           ))
@@ -75,11 +81,14 @@ class AluguelForm extends StatelessWidget {
                           case ConnectionState.active:
                             break;
                           case ConnectionState.done:
-                            return FormBuilderDropdown(
+                            return FormBuilderDropdown<int>(
                               name: "hospede_id",
+                              initialValue: _control.initialValue(
+                                "hospede_id",
+                              ),
                               items: snapshot.data
-                                  .map<DropdownMenuItem>(
-                                      (e) => DropdownMenuItem(
+                                  .map<DropdownMenuItem<int>>(
+                                      (e) => DropdownMenuItem<int>(
                                             child: Text(e.nome),
                                             value: e.id,
                                           ))
@@ -102,6 +111,7 @@ class AluguelForm extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: FormBuilderDateRangePicker(
                     name: "periodo",
+                    initialValue: _control.initialPeriodo(),
                     firstDate: DateTime(1970),
                     lastDate: DateTime(2030),
                     format: intl.DateFormat("dd/MM/yyyy"),
@@ -121,6 +131,8 @@ class AluguelForm extends StatelessWidget {
                       child: KeyboardInputField(
                         "total_hospedes",
                         label: "Total de Hóspedes",
+                        initialValue: toStringOrNull(
+                            _control.initialValue("total_hospedes")),
                         icon: Icons.people,
                         keyboardType: TextInputType.number,
                         validations: [
@@ -136,6 +148,8 @@ class AluguelForm extends StatelessWidget {
                       child: KeyboardInputField(
                         "valor",
                         label: "Valor",
+                        initialValue:
+                            toStringOrNull(_control.initialValue("valor")),
                         icon: Icons.attach_money,
                         keyboardType: TextInputType.number,
                         validations: [
@@ -153,7 +167,7 @@ class AluguelForm extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: FormBuilderSwitch(
                     name: "roupa_de_cama",
-                    initialValue: false,
+                    initialValue: _control.initialValue("roupa_de_cama"),
                     title: Text("Roupa de cama"),
                     decoration: InputDecoration(
                       icon: Icon(Icons.local_laundry_service),
@@ -165,6 +179,7 @@ class AluguelForm extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: FormBuilderChoiceChip(
                     name: "forma",
+                    initialValue: _control.initialValue("forma"),
                     options: [
                       FormBuilderFieldOption(
                         value: "airbnb",
@@ -191,10 +206,11 @@ class AluguelForm extends StatelessWidget {
                 KeyboardInputField(
                   "observacao",
                   label: "Observações",
+                  initialValue: _control.initialValue("Observações"),
                   onChanged: (val) => _control.onChange("observacao", val),
                 ),
                 ElevatedButton(
-                  onPressed: () => _control.submit,
+                  onPressed: _control.submit,
                   child: Text("Cadastrar"),
                 ),
               ],

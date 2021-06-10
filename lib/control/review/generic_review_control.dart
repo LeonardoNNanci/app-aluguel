@@ -46,7 +46,11 @@ abstract class ReviewControl<T extends AbstractModel> {
           ),
         ],
       ),
-    ).then(
-        (confirmedRemove) => confirmedRemove ? service.remove(_item) : null);
+    ).then((confirmedRemove) {
+      if (confirmedRemove) {
+        service.remove(_item);
+        Navigator.pop(context);
+      }
+    });
   }
 }

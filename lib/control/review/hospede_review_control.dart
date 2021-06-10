@@ -1,4 +1,5 @@
 import 'package:aluguel/models/hospede.dart';
+import 'package:aluguel/screens/forms/hospede_form.dart';
 import 'package:aluguel/service/hospede_service.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -8,5 +9,5 @@ class HospedeReviewControl extends ReviewControl {
   final Hospede hospede;
 
   HospedeReviewControl(this.hospede)
-      : super(HospedeService(), Placeholder(), hospede);
+      : super(HospedeService(), HospedeForm(hospede: hospede), hospede);
 }

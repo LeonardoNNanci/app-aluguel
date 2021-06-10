@@ -1,3 +1,4 @@
+import 'package:aluguel/util/custom_to_string.dart';
 import 'package:aluguel/widgets/feedback/error_feedback.dart';
 import 'package:aluguel/widgets/feedback/loading_feedback.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,11 @@ import 'package:aluguel/widgets/keyboard_input_field.dart';
 
 // ignore: must_be_immutable
 class DespesaForm extends StatelessWidget {
-  final _control = DespesaFormControl();
+  DespesaFormControl _control;
+
+  DespesaForm({despesa}) {
+    _control = DespesaFormControl(despesa);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +32,7 @@ class DespesaForm extends StatelessWidget {
                 KeyboardInputField(
                   "servico",
                   label: "Serviço",
+                  initialValue: _control.initialValue("servico"),
                   icon: Icons.settings,
                   validations: [FormBuilderValidators.required(context)],
                   onChanged: (val) => _control.onChange("servico", val),
@@ -45,20 +51,22 @@ class DespesaForm extends StatelessWidget {
                         case ConnectionState.active:
                           break;
                         case ConnectionState.done:
-                          return FormBuilderDropdown(
+                          return FormBuilderDropdown<int>(
                             name: "imovel_id",
                             decoration: InputDecoration(
                               labelText: "Imóvel",
                               icon: Icon(Icons.home_work),
                             ),
+                            initialValue: _control.initialValue("imovel_id"),
                             validator: FormBuilderValidators.compose(
                                 [FormBuilderValidators.required(context)]),
                             allowClear: true,
                             items: snapshot.data
-                                .map<DropdownMenuItem>((e) => DropdownMenuItem(
-                                      child: Text(e.local),
-                                      value: e.id,
-                                    ))
+                                .map<DropdownMenuItem<int>>(
+                                    (e) => DropdownMenuItem<int>(
+                                          child: Text(e.local),
+                                          value: e.id,
+                                        ))
                                 .toList(),
                             onChanged: (val) =>
                                 _control.onChange("imovel_id", val),
@@ -75,6 +83,8 @@ class DespesaForm extends StatelessWidget {
                       child: KeyboardInputField(
                         "valor",
                         label: "Valor",
+                        initialValue:
+                            toStringOrNull(_control.initialValue("valor")),
                         icon: Icons.attach_money,
                         prefix: "R\$ ",
                         keyboardType: TextInputType.number,
@@ -92,6 +102,7 @@ class DespesaForm extends StatelessWidget {
                         padding: const EdgeInsets.all(8.0),
                         child: FormBuilderDateTimePicker(
                           name: "date",
+                          initialValue: _control.initialValue("date"),
                           inputType: InputType.date,
                           validator: FormBuilderValidators.required(context),
                           onChanged: (val) =>

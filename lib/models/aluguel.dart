@@ -32,11 +32,15 @@ class Aluguel extends AbstractModel {
     this.hospedeId = map[AluguelHospedeField];
     this.checkin = DateTime.parse(map[AluguelCheckinField]);
     this.checkout = DateTime.parse(map[AluguelCheckoutField]);
-    this.totalHospedes = map[AluguelHospedeField];
+    this.totalHospedes = map[AluguelTotalHospedesField];
     this.valor = map[AluguelValorField];
     this.forma = map[AluguelFormaField];
-    this.roupaDeCama = map[AluguelRoupaDeCamaField] == 1;
     this.observacao = map[AluguelObservacaoField];
+    if (map[AluguelRoupaDeCamaField] is bool) {
+      this.roupaDeCama = map[AluguelRoupaDeCamaField];
+    } else {
+      this.roupaDeCama = map[AluguelRoupaDeCamaField].toString() == "true";
+    }
   }
 
   @override
@@ -49,12 +53,11 @@ class Aluguel extends AbstractModel {
     map[AluguelHospedeField] = this.hospedeId;
     map[AluguelCheckinField] = this.checkin.toString();
     map[AluguelCheckoutField] = this.checkout.toString();
-    map[AluguelHospedeField] = this.totalHospedes;
+    map[AluguelTotalHospedesField] = this.totalHospedes;
     map[AluguelValorField] = this.valor;
     map[AluguelFormaField] = this.forma;
     map[AluguelRoupaDeCamaField] = this.roupaDeCama.toString();
     map[AluguelObservacaoField] = this.observacao;
-
     return map;
   }
 

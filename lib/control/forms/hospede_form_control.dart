@@ -4,14 +4,22 @@ import 'package:aluguel/service/hospede_service.dart';
 import 'generic_form_control.dart';
 
 class HospedeFormControl extends FormControl {
-  HospedeService _service = HospedeService();
+  HospedeFormControl(Hospede hospede) : super(HospedeService(), item: hospede) {
+    if (hospede != null) {
+      formData["id"] = hospede.id;
+      formData["nome"] = hospede.nome;
+      formData["cpf"] = hospede.cpf;
+      formData["email"] = hospede.email;
+      formData["endereco"] = hospede.endereco;
+    }
+  }
 
-  HospedeFormControl();
+  Hospede get hospede => item;
 
-  Hospede submit(){
+  Hospede submit() {
     if (formKey.currentState.validate()) {
-      final hospede = Hospede.fromMap(formData);
-      _service.create(hospede).then((value) => print(value));
+      item = Hospede.fromMap(formData);
+      super.submit();
     }
     return null;
   }

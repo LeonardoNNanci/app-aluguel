@@ -4,16 +4,13 @@ import 'package:flutter/material.dart';
 
 abstract class ReviewControl<T extends AbstractModel> {
   final Service service;
-  final Widget editScreen;
-  final T _item;
+  final String editScreen;
+  AbstractModel item;
 
-  ReviewControl(this.service, this.editScreen, this._item);
+  ReviewControl(this.service, this.editScreen);
 
-  openEditScreen(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => editScreen),
-    );
+  openEditScreen(BuildContext context) async {
+    return await Navigator.pushNamed(context, editScreen, arguments: item);
   }
 
   remove(BuildContext context) {
@@ -48,7 +45,7 @@ abstract class ReviewControl<T extends AbstractModel> {
       ),
     ).then((confirmedRemove) {
       if (confirmedRemove) {
-        service.remove(_item);
+        service.remove(item);
         Navigator.pop(context);
       }
     });

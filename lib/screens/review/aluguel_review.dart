@@ -6,14 +6,12 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class AluguelReview extends StatelessWidget {
-  AluguelReviewControl _control;
-
-  AluguelReview(despesa, {Key key}) : super(key: key) {
-    _control = AluguelReviewControl(despesa);
-  }
+  final AluguelReviewControl _control = AluguelReviewControl();
 
   @override
   Widget build(BuildContext context) {
+    _control.aluguel = ModalRoute.of(context).settings.arguments;
+
     return ReviewScreen(
       title: "Aluguel",
       control: _control,

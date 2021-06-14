@@ -11,11 +11,9 @@ abstract class FormControl {
 
   AbstractModel item;
 
-  FormControl(this.service, {this.item}){
-    forUpdate = item != null;
-  }
+  FormControl(this.service);
 
-  dynamic initialValue(String key){
+  dynamic initialValue(String key) {
     return forUpdate ? formData[key] : null;
   }
 
@@ -23,12 +21,15 @@ abstract class FormControl {
     formData[key] = val;
   }
 
-  @mustCallSuper
-  submit(){
+  submitAndRedirect(BuildContext context, String model) async {
     if (forUpdate) {
-      service.update(item).then((value) => print(value));
+      item = await service.update(item);
+      Navigator.pushNamedAndRemoveUntil(
+          context, '/review/$model', ModalRoute.withName('/'),
+          arguments: item);
     } else {
-      service.create(item).then((value) => print(value));
+      item = await service.create(item);
+      Navigator.popAndPushNamed(context, '/review/$model', arguments: item);
     }
   }
 }

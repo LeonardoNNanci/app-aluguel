@@ -22,7 +22,9 @@ class ReviewScreen extends StatelessWidget {
         actions: [
           IconButton(
             icon: DefaultIcons.edit,
-            onPressed: () => control.openEditScreen(context),
+            onPressed: () async {
+              await control.openEditScreen(context);
+            },
           ),
           IconButton(
             icon: DefaultIcons.remove,

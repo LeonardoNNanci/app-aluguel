@@ -12,24 +12,27 @@ class AluguelFormControl extends FormControl {
   ImovelService _imovelService = ImovelService();
   HospedeService _hospedeService = HospedeService();
 
-  AluguelFormControl(Aluguel aluguel) : super(AluguelService(), item: aluguel) {
-    if (aluguel != null) {
-      formData["id"] = aluguel.id;
-      formData["valor"] = aluguel.valor;
-      formData["forma"] = aluguel.forma;
-      formData["imovel_id"] = aluguel.imovelId;
-      formData["hospede_id"] = aluguel.hospedeId;
-      formData["observacao"] = aluguel.observacao;
-      formData["roupa_de_cama"] = aluguel.roupaDeCama;
-      formData["total_hospedes"] = aluguel.totalHospedes;
-      formData["periodo"] =
-          DateTimeRange(start: aluguel.checkin, end: aluguel.checkout);
-    } else {
-      formData["roupa_de_cama"] = false;
-    }
+  AluguelFormControl() : super(AluguelService()) {
+    formData["roupa_de_cama"] = false;
   }
 
   Aluguel get aluguel => item;
+
+  set aluguel(Aluguel aluguel) {
+    if (aluguel == null) return null;
+    forUpdate = true;
+    item = aluguel;
+    formData["id"] = aluguel.id;
+    formData["valor"] = aluguel.valor;
+    formData["forma"] = aluguel.forma;
+    formData["imovel_id"] = aluguel.imovelId;
+    formData["hospede_id"] = aluguel.hospedeId;
+    formData["observacao"] = aluguel.observacao;
+    formData["roupa_de_cama"] = aluguel.roupaDeCama;
+    formData["total_hospedes"] = aluguel.totalHospedes;
+    formData["periodo"] =
+        DateTimeRange(start: aluguel.checkin, end: aluguel.checkout);
+  }
 
   DateTimeRange initialPeriodo() {
     if (item == null) return null;
@@ -45,12 +48,12 @@ class AluguelFormControl extends FormControl {
     return await _hospedeService.getAll();
   }
 
-  Aluguel submit() {
+  Aluguel submit(BuildContext context) {
     if (formKey.currentState.validate()) {
       formData["checkin"] = formData["periodo"].start.toString();
       formData["checkout"] = formData["periodo"].end.toString();
       item = Aluguel.fromMap(formData);
-      super.submit();
+      super.submitAndRedirect(context, 'aluguel');
     }
     return null;
   }

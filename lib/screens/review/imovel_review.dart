@@ -2,16 +2,13 @@ import 'package:aluguel/control/review/imovel_review_control.dart';
 import 'package:aluguel/screens/review/generic_review.dart';
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
 class ImovelReview extends StatelessWidget {
-  ImovelReviewControl _control;
-
-  ImovelReview(imovel, {Key key}) : super(key: key) {
-    _control = ImovelReviewControl(imovel);
-  }
+  final ImovelReviewControl _control = ImovelReviewControl();
 
   @override
   Widget build(BuildContext context) {
+    _control.imovel = ModalRoute.of(context).settings.arguments;
+
     return ReviewScreen(
       title: _control.imovel.local,
       control: _control,

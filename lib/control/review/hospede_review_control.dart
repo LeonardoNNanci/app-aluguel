@@ -1,13 +1,12 @@
 import 'package:aluguel/models/hospede.dart';
-import 'package:aluguel/screens/forms/hospede_form.dart';
 import 'package:aluguel/service/hospede_service.dart';
-import 'package:flutter/cupertino.dart';
 
 import 'generic_review_control.dart';
 
 class HospedeReviewControl extends ReviewControl {
-  final Hospede hospede;
+  Hospede get hospede => item;
 
-  HospedeReviewControl(this.hospede)
-      : super(HospedeService(), HospedeForm(hospede: hospede), hospede);
+  set hospede(Hospede hospede) => item = hospede;
+
+  HospedeReviewControl() : super(HospedeService(), '/edit/hospede');
 }

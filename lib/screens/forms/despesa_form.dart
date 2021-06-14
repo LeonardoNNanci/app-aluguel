@@ -8,16 +8,13 @@ import 'package:intl/intl.dart' as intl;
 import 'package:aluguel/control/forms/despesa_form_control.dart';
 import 'package:aluguel/widgets/keyboard_input_field.dart';
 
-// ignore: must_be_immutable
 class DespesaForm extends StatelessWidget {
-  DespesaFormControl _control;
-
-  DespesaForm({despesa}) {
-    _control = DespesaFormControl(despesa);
-  }
+  final DespesaFormControl _control = DespesaFormControl();
 
   @override
   Widget build(BuildContext context) {
+    _control.despesa = ModalRoute.of(context).settings.arguments;
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Nova Despesa"),
@@ -118,7 +115,7 @@ class DespesaForm extends StatelessWidget {
                   ],
                 ),
                 ElevatedButton(
-                  onPressed: _control.submit,
+                  onPressed: () => _control.submit(context),
                   child: Text("Cadastrar"),
                 ),
               ],

@@ -7,16 +7,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:intl/intl.dart' as intl;
 
-// ignore: must_be_immutable
 class AluguelForm extends StatelessWidget {
-  AluguelFormControl _control;
-
-  AluguelForm({aluguel}) {
-    _control = AluguelFormControl(aluguel);
-  }
+  final AluguelFormControl _control = AluguelFormControl();
 
   @override
   Widget build(BuildContext context) {
+    _control.aluguel = ModalRoute.of(context).settings.arguments;
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Novo Aluguel"),
@@ -167,7 +164,8 @@ class AluguelForm extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: FormBuilderSwitch(
                     name: "roupa_de_cama",
-                    initialValue: _control.initialValue("roupa_de_cama"),
+                    initialValue:
+                        _control.initialValue("roupa_de_cama") != null,
                     title: Text("Roupa de cama"),
                     decoration: InputDecoration(
                       icon: Icon(Icons.local_laundry_service),
@@ -210,7 +208,7 @@ class AluguelForm extends StatelessWidget {
                   onChanged: (val) => _control.onChange("observacao", val),
                 ),
                 ElevatedButton(
-                  onPressed: _control.submit,
+                  onPressed: () => _control.submit(context),
                   child: Text("Cadastrar"),
                 ),
               ],

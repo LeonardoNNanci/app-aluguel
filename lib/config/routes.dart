@@ -6,6 +6,10 @@ import 'package:aluguel/screens/lists/alugueis_list.dart';
 import 'package:aluguel/screens/lists/despesas_list.dart';
 import 'package:aluguel/screens/lists/hospedes_list.dart';
 import 'package:aluguel/screens/lists/imoveis_list.dart';
+import 'package:aluguel/screens/review/aluguel_review.dart';
+import 'package:aluguel/screens/review/despesa_review.dart';
+import 'package:aluguel/screens/review/hospede_review.dart';
+import 'package:aluguel/screens/review/imovel_review.dart';
 import 'package:aluguel/screens/todo_list/todo_list.dart';
 import 'package:flutter/material.dart';
 
@@ -17,16 +21,16 @@ Map<String, Widget Function(BuildContext)> routes(BuildContext context) => {
       'task_list': (context) => ToDo(),
 
       // Lists
-      '/list/imoveis': (context) => ImoveisList(),
-      '/list/hospedes': (context) => HospedesList(),
-      '/list/despesas': (context) => DespesasList(),
-      '/list/alugueis': (context) => AlugueisList(),
+      '/list/imovel': (context) => ImoveisList(),
+      '/list/hospede': (context) => HospedesList(),
+      '/list/despesa': (context) => DespesasList(),
+      '/list/aluguel': (context) => AlugueisList(),
 
       // Reviews
-      '/review/imovel': (context) => ImovelForm(),
-      '/review/hospede': (context) => HospedeForm(),
-      '/review/despesa': (context) => DespesaForm(),
-      '/review/aluguel': (context) => AluguelForm(),
+      '/review/imovel': (context) => ImovelReview(),
+      '/review/hospede': (context) => HospedeReview(),
+      '/review/despesa': (context) => DespesaReview(),
+      '/review/aluguel': (context) => AluguelReview(),
 
       // Creation forms
       '/create/imovel': (context) => ImovelForm(),
@@ -34,9 +38,9 @@ Map<String, Widget Function(BuildContext)> routes(BuildContext context) => {
       '/create/despesa': (context) => DespesaForm(),
       '/create/aluguel': (context) => AluguelForm(),
 
-      // Update forms (creation forms with arguments)
-      '/update/imovel': (context) => ImovelForm(),
-      '/update/hospede': (context) => HospedeForm(),
-      '/update/despesa': (context) => DespesaForm(),
-      '/update/aluguel': (context) => AluguelForm(),
+      // Edit forms (creation forms with arguments)
+      '/edit/imovel': (context) => ImovelForm(),
+      '/edit/hospede': (context) => HospedeForm(),
+      '/edit/despesa': (context) => DespesaForm(),
+      '/edit/aluguel': (context) => AluguelForm(),
     };

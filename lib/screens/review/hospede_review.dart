@@ -2,16 +2,13 @@ import 'package:aluguel/control/review/hospede_review_control.dart';
 import 'package:aluguel/screens/review/generic_review.dart';
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
 class HospedeReview extends StatelessWidget {
-  HospedeReviewControl _control;
-
-  HospedeReview(hospede, {Key key}) : super(key: key) {
-    _control = HospedeReviewControl(hospede);
-  }
+  final HospedeReviewControl _control = HospedeReviewControl();
 
   @override
   Widget build(BuildContext context) {
+    _control.hospede = ModalRoute.of(context).settings.arguments;
+
     return ReviewScreen(
       title: _control.hospede.nome.split(" ")[0],
       control: _control,

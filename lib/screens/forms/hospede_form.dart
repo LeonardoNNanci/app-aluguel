@@ -4,16 +4,13 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:aluguel/widgets/keyboard_input_field.dart';
 import 'package:aluguel/control/forms/hospede_form_control.dart';
 
-// ignore: must_be_immutable
 class HospedeForm extends StatelessWidget {
-  HospedeFormControl _control;
-
-  HospedeForm({hospede}) {
-    _control = HospedeFormControl(hospede);
-  }
+  final HospedeFormControl _control = HospedeFormControl();
 
   @override
   Widget build(BuildContext context) {
+    _control.hospede = ModalRoute.of(context).settings.arguments;
+    print(_control.hospede);
     return Scaffold(
       appBar: AppBar(
         title: Text("Novo Hóspede"),
@@ -67,7 +64,7 @@ class HospedeForm extends StatelessWidget {
                   onChanged: (val) => _control.onChange("endereco", val),
                 ),
                 ElevatedButton(
-                  onPressed: _control.submit,
+                  onPressed: () => _control.submit(context),
                   child: Text("Cadastrar"),
                 )
               ],

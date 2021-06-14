@@ -4,16 +4,13 @@ import 'package:aluguel/widgets/feedback/error_feedback.dart';
 import 'package:aluguel/widgets/feedback/loading_feedback.dart';
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
 class DespesaReview extends StatelessWidget {
-  DespesaReviewControl _control;
-
-  DespesaReview(despesa, {Key key}) : super(key: key) {
-    _control = DespesaReviewControl(despesa);
-  }
+  final DespesaReviewControl _control = DespesaReviewControl();
 
   @override
   Widget build(BuildContext context) {
+    _control.despesa = ModalRoute.of(context).settings.arguments;
+
     return ReviewScreen(
       title: _control.despesa.servico,
       control: _control,
@@ -23,7 +20,7 @@ class DespesaReview extends StatelessWidget {
           FutureBuilder(
             future: _control.getImovelName(),
             builder: (context, snapshot) {
-              switch(snapshot.connectionState){
+              switch (snapshot.connectionState) {
                 case ConnectionState.none:
                   break;
                 case ConnectionState.waiting:

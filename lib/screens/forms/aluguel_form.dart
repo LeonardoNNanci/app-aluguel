@@ -1,4 +1,5 @@
 import 'package:aluguel/control/forms/aluguel_form_control.dart';
+import 'package:aluguel/style/default_icons.dart';
 import 'package:aluguel/util/custom_to_string.dart';
 import 'package:aluguel/widgets/feedback/error_feedback.dart';
 import 'package:aluguel/widgets/feedback/loading_feedback.dart';
@@ -54,7 +55,7 @@ class AluguelForm extends StatelessWidget {
                               ]),
                               decoration: InputDecoration(
                                 labelText: "Imóvel",
-                                icon: Icon(Icons.home_work),
+                                icon: Icon(DefaultIcons.imovel),
                               ),
                               onChanged: (val) =>
                                   _control.onChange("imovel_id", val),
@@ -95,7 +96,7 @@ class AluguelForm extends StatelessWidget {
                               ]),
                               decoration: InputDecoration(
                                   labelText: "Hóspede",
-                                  icon: Icon(Icons.person)),
+                                  icon: Icon(DefaultIcons.hospede)),
                               onChanged: (val) =>
                                   _control.onChange("hospede_id", val),
                             );

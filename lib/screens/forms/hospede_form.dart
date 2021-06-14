@@ -1,3 +1,4 @@
+import 'package:aluguel/style/default_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
@@ -26,7 +27,7 @@ class HospedeForm extends StatelessWidget {
                   "nome",
                   label: "Nome",
                   initialValue: _control.initialValue("nome"),
-                  icon: Icons.person,
+                  icon: DefaultIcons.hospede,
                   validations: [
                     FormBuilderValidators.required(context),
                   ],
@@ -57,7 +58,7 @@ class HospedeForm extends StatelessWidget {
                   "endereco",
                   label: "Endereço",
                   initialValue: _control.initialValue("endereco"),
-                  icon: Icons.home_work,
+                  icon: Icons.place,
                   validations: [
                     FormBuilderValidators.required(context),
                   ],

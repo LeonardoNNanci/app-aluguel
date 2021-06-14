@@ -1,5 +1,5 @@
 import 'package:aluguel/config/routes.dart';
-import 'package:aluguel/style/appTheme.dart';
+import 'package:aluguel/style/app_theme.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());

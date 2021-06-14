@@ -1,3 +1,4 @@
+import 'package:aluguel/style/default_icons.dart';
 import 'package:aluguel/util/custom_to_string.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -27,7 +28,7 @@ class ImovelForm extends StatelessWidget {
                   "local",
                   label: "Local",
                   initialValue: _control.initialValue("local"),
-                  icon: Icons.place,
+                  icon: DefaultIcons.imovel,
                   validations: [
                     FormBuilderValidators.required(context),
                   ],
@@ -41,7 +42,7 @@ class ImovelForm extends StatelessWidget {
                         label: "Hóspedes",
                         initialValue: toStringOrNull(
                             _control.initialValue("max_hospedes")),
-                        icon: Icons.account_circle,
+                        icon: Icons.people,
                         keyboardType: TextInputType.number,
                         validations: [
                           FormBuilderValidators.required(context),

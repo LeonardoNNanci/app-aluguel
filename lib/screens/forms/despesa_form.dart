@@ -1,3 +1,4 @@
+import 'package:aluguel/style/default_icons.dart';
 import 'package:aluguel/util/custom_to_string.dart';
 import 'package:aluguel/widgets/feedback/error_feedback.dart';
 import 'package:aluguel/widgets/feedback/loading_feedback.dart';
@@ -30,7 +31,7 @@ class DespesaForm extends StatelessWidget {
                   "servico",
                   label: "Serviço",
                   initialValue: _control.initialValue("servico"),
-                  icon: Icons.settings,
+                  icon: DefaultIcons.despesa,
                   validations: [FormBuilderValidators.required(context)],
                   onChanged: (val) => _control.onChange("servico", val),
                 ),
@@ -52,7 +53,7 @@ class DespesaForm extends StatelessWidget {
                             name: "imovel_id",
                             decoration: InputDecoration(
                               labelText: "Imóvel",
-                              icon: Icon(Icons.home_work),
+                              icon: Icon(DefaultIcons.imovel),
                             ),
                             initialValue: _control.initialValue("imovel_id"),
                             validator: FormBuilderValidators.compose(

@@ -5,9 +5,10 @@ import 'feedback/loading_feedback.dart';
 
 class CustomFutureBuilder extends StatelessWidget {
   final Future<dynamic> future;
-  final Widget Function(BuildContext, dynamic) onSuccess;
+  final Widget Function(BuildContext context, dynamic snapshotData) onSuccess;
 
-  const CustomFutureBuilder({Key key, this.future, this.onSuccess}) : super(key: key);
+  const CustomFutureBuilder({Key key, this.future, this.onSuccess})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

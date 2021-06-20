@@ -12,4 +12,7 @@ class DefaultIcons {
   static IconData get edit => Icons.edit;
 
   static IconData get remove => Icons.delete;
+
+  static IconData get taskList => Icons.check_circle_outline;
+
 }

@@ -28,7 +28,7 @@ class AluguelService extends Service<Aluguel> {
     final ans = <Map<String, dynamic>>[];
     final alugueis = await dao.selectAll();
 
-    for(Aluguel aluguel in alugueis){
+    for (Aluguel aluguel in alugueis) {
       final Imovel imovel = await imovelService.getById(aluguel.imovelId);
       final Hospede hospede = await hospedeService.getById(aluguel.imovelId);
       ans.add({

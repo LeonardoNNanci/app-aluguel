@@ -2,6 +2,7 @@ import 'package:aluguel/screens/forms/aluguel_form.dart';
 import 'package:aluguel/screens/forms/despesa_form.dart';
 import 'package:aluguel/screens/forms/hospede_form.dart';
 import 'package:aluguel/screens/forms/imovel_form.dart';
+import 'package:aluguel/screens/home.dart';
 import 'package:aluguel/screens/lists/alugueis_list.dart';
 import 'package:aluguel/screens/lists/despesas_list.dart';
 import 'package:aluguel/screens/lists/hospedes_list.dart';
@@ -15,7 +16,7 @@ import 'package:flutter/material.dart';
 
 Map<String, Widget Function(BuildContext)> routes(BuildContext context) => {
       // Home
-      '/': (context) => Placeholder(),
+      '/': (context) => Home(),
 
       // Task list
       'task_list': (context) => ToDo(),

@@ -2,8 +2,8 @@ import 'package:aluguel/widgets/feedback/loading_feedback.dart';
 import 'package:flutter/material.dart';
 
 import 'package:aluguel/models/task.dart';
-import 'package:aluguel/screens/todo_list/task_card.dart';
-import 'package:aluguel/screens/todo_list/task_dialog.dart';
+import 'package:aluguel/screens/home/todo_list/task_card.dart';
+import 'package:aluguel/screens/home/todo_list/task_dialog.dart';
 import 'package:aluguel/util/json_io.dart';
 import 'package:aluguel/widgets/feedback/error_feedback.dart';
 import 'package:aluguel/widgets/feedback/feedback_info.dart';
@@ -21,9 +21,6 @@ class ToDo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(_appBarTitle),
-      ),
       body: FutureBuilder(
         future: file.readData(),
         builder: (context, snapshot) {
@@ -35,6 +32,7 @@ class ToDo extends StatelessWidget {
               List<Task> tasks = snapshot.data
                   .map<Task>((elem) => Task.fromMap(elem))
                   .toList();
+              tasks.sort((a, b) => a.compareTo(b));
               return TaskList(
                 key: taskListKey,
                 file: file,
@@ -50,18 +48,25 @@ class ToDo extends StatelessWidget {
           return ErrorFeedback();
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () =>
-            showDialog(context: context, builder: (context) => NewTaskDialog())
-                .then((taskDescription) {
-          if (taskDescription != null) {
-            final task = Task(taskDescription, false, DateTime.now());
-            taskListKey.currentState.addTask(task);
-          }
-        }),
-      ),
-      floatingActionButtonLocation: null,
+      // floatingActionButton: FloatingActionButton(
+      //   child: Icon(Icons.add),
+      //   onPressed:,
+      // ),
+      // floatingActionButtonLocation: null,
+    );
+  }
+
+  Widget addButton(BuildContext context){
+    return IconButton(
+      icon: Icon(Icons.add),
+      onPressed: () => showDialog(
+          context: context,
+          builder: (context) => NewTaskDialog()).then((taskDescription) {
+        if (taskDescription != null) {
+          final task = Task(taskDescription, false, DateTime.now());
+          taskListKey.currentState.addTask(task);
+        }
+      }),
     );
   }
 }
@@ -101,6 +106,7 @@ class _TaskListState extends State<TaskList> {
         legend: Text(_noDataLegend),
       );
     return ListView.builder(
+      key: UniqueKey(),
       itemBuilder: (context, index) {
         return TaskCard(
           key: ObjectKey(tasks[index]),
@@ -108,6 +114,7 @@ class _TaskListState extends State<TaskList> {
           onCheck: (task) {
             setState(() {
               tasks[index] = task;
+              tasks.sort((a,b) => a.compareTo(b));
             });
             widget.saveData(tasks);
           },
@@ -120,6 +127,7 @@ class _TaskListState extends State<TaskList> {
           onEdit: (task) {
             setState(() {
               tasks[index] = task;
+              tasks.sort((a,b) => a.compareTo(b));
             });
             widget.saveData(tasks);
           },
@@ -132,6 +140,7 @@ class _TaskListState extends State<TaskList> {
   void addTask(Task task) {
     setState(() {
       tasks.add(task);
+      tasks.sort((a,b) => a.compareTo(b));
     });
     widget.saveData(tasks);
   }

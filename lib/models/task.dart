@@ -19,6 +19,12 @@ class Task {
     };
   }
 
+  int compareTo(Task other){
+    if(this.checked && !other.checked) return 1;
+    if(!this.checked && other.checked) return -1;
+    return - this.checkTime.compareTo(other.checkTime);
+  }
+
   @override
   String toString() {
     return "$description | $checked | $checkTime";

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import 'package:aluguel/models/task.dart';
-import 'package:aluguel/screens/todo_list/task_dialog.dart';
+import 'package:aluguel/screens/home/todo_list/task_dialog.dart';
 
 class TaskCard extends StatefulWidget {
   final Task task;

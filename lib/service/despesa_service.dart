@@ -30,4 +30,9 @@ class DespesaService extends Service<Despesa> {
 
     return ans;
   }
+
+  Future<Despesa> create(Despesa despesa) async {
+    if (despesa.valor <= 0) return null;
+    return await super.create(despesa);
+  }
 }

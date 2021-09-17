@@ -2,7 +2,7 @@ import 'package:aluguel/screens/forms/aluguel_form.dart';
 import 'package:aluguel/screens/forms/despesa_form.dart';
 import 'package:aluguel/screens/forms/hospede_form.dart';
 import 'package:aluguel/screens/forms/imovel_form.dart';
-import 'package:aluguel/screens/home.dart';
+import 'package:aluguel/screens/home/home.dart';
 import 'package:aluguel/screens/lists/alugueis_list.dart';
 import 'package:aluguel/screens/lists/despesas_list.dart';
 import 'package:aluguel/screens/lists/hospedes_list.dart';
@@ -11,7 +11,7 @@ import 'package:aluguel/screens/review/aluguel_review.dart';
 import 'package:aluguel/screens/review/despesa_review.dart';
 import 'package:aluguel/screens/review/hospede_review.dart';
 import 'package:aluguel/screens/review/imovel_review.dart';
-import 'package:aluguel/screens/todo_list/todo_list.dart';
+import 'package:aluguel/screens/home/todo_list/todo_list.dart';
 import 'package:flutter/material.dart';
 
 Map<String, Widget Function(BuildContext)> routes(BuildContext context) => {

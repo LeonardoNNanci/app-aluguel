@@ -1,6 +1,6 @@
 import 'package:aluguel/service/aluguel_service.dart';
 
-class HomeControl {
+class OverviewControl {
   final AluguelService _aluguelService = AluguelService();
 
   Future<List<Map<String, dynamic>>> getFutureAlugueis() async {

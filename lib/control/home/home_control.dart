@@ -4,6 +4,7 @@ import 'package:aluguel/screens/home/todo_list/todo_list.dart';
 import 'package:flutter/material.dart';
 
 class HomeControl {
+
   List<Widget> addAction(screen, context) {
     if (screen.runtimeType != ToDo) return [];
     return [
@@ -21,8 +22,11 @@ class HomeControl {
     ];
   }
 
-  void openScreen(BuildContext context, String route){
-    Navigator.pop(context);
-    Navigator.pushNamed(context, route);
+  Future closeOpenScreen(BuildContext context, String route) async {
+    await Navigator.popAndPushNamed(context, route);
+  }
+
+  Future openScreen(BuildContext context, String route) async {
+    await Navigator.pushNamed(context, route);
   }
 }

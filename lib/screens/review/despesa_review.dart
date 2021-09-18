@@ -1,3 +1,4 @@
+import 'package:aluguel/config/date_format.dart';
 import 'package:aluguel/control/review/despesa_review_control.dart';
 import 'package:aluguel/screens/review/generic_review.dart';
 import 'package:aluguel/widgets/feedback/error_feedback.dart';
@@ -36,7 +37,7 @@ class DespesaReview extends StatelessWidget {
             },
           ),
           Text("Valor: ${_control.despesa.valor}"),
-          Text("Data: ${_control.despesa.date.toString()}"),
+          Text("Data: ${DDMMYY.format(_control.despesa.date)}"),
         ],
       ),
     );

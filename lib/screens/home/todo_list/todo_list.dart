@@ -11,8 +11,6 @@ import 'package:aluguel/widgets/feedback/feedback_info.dart';
 final String _noDataLegend = "Ainda não há anotações por aqui...";
 
 class ToDo extends StatelessWidget {
-  final String _appBarTitle = "Lista de Tarefas";
-
   final file = JsonFile("todo.txt");
   final taskListKey = GlobalKey<_TaskListState>();
 

@@ -6,10 +6,12 @@ class HospedesListControl {
   final service = HospedeService();
 
   Future<List<Hospede>> getAll() async {
-    return await service.getAll();
+    List<Hospede> hospedes = await service.getAll();
+    hospedes.sort((a, b) => a.nome.compareTo(b.nome));
+    return hospedes;
   }
 
-  openReviewScreen(BuildContext context, Hospede hospede) {
-    Navigator.pushNamed(context, '/review/hospede', arguments: hospede);
+  Future openReviewScreen(BuildContext context, Hospede hospede) async {
+    await Navigator.pushNamed(context, '/review/hospede', arguments: hospede);
   }
 }

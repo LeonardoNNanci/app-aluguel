@@ -14,6 +14,8 @@ class OverviewControl {
       }
     }
 
+    _sort(ans, false);
+
     return ans;
   }
 
@@ -21,7 +23,6 @@ class OverviewControl {
     final now = DateTime.now();
     final ans = <Map<String, dynamic>>[];
     final alugueis = await _aluguelService.getAllFetch();
-
 
     print(alugueis);
 
@@ -32,6 +33,18 @@ class OverviewControl {
       }
     }
 
+    _sort(ans, true);
+
     return ans;
+  }
+
+  List<Map<String, dynamic>> _sort(List<Map<String, dynamic>> l, bool reverse) {
+    int order = reverse ? -1 : 1;
+    l.sort((a, b) {
+      int aux = a["aluguel"].checkin.compareTo(b["aluguel"].checkin);
+      if (aux != 0) return aux * order;
+      return a["aluguel"].checkout.compareTo(b["aluguel"].checkout) * -order;
+    });
+    return l;
   }
 }

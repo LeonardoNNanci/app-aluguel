@@ -6,10 +6,16 @@ class AlugueisListControl {
   final service = AluguelService();
 
   Future<List<Map<String, dynamic>>> getAll() async {
-    return await service.getAllFetch();
+    List<Map<String, dynamic>> alugueis = await service.getAllFetch();
+    alugueis.sort((a, b) {
+      int ans = a["aluguel"].checkin.compareTo(b["aluguel"].checkin);
+      if (ans != 0) return -ans;
+      return -a["aluguel"].checkout.compareTo(b["aluguel"].checkout);
+    });
+    return alugueis;
   }
 
-  openReviewScreen(BuildContext context, Aluguel aluguel) {
-    Navigator.pushNamed(context, '/review/aluguel', arguments: aluguel);
+  Future openReviewScreen(BuildContext context, Aluguel aluguel) async {
+    await Navigator.pushNamed(context, '/review/aluguel', arguments: aluguel);
   }
 }

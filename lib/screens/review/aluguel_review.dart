@@ -1,3 +1,4 @@
+import 'package:aluguel/config/date_format.dart';
 import 'package:aluguel/control/review/aluguel_review_control.dart';
 import 'package:aluguel/screens/review/generic_review.dart';
 import 'package:aluguel/widgets/feedback/error_feedback.dart';
@@ -54,8 +55,8 @@ class AluguelReview extends StatelessWidget {
               return ErrorFeedback();
             },
           ),
-          Text("Checkin: ${_control.aluguel.checkin}"),
-          Text("Checkin: ${_control.aluguel.checkout}"),
+          Text("Checkin: ${DDMMYY.format(_control.aluguel.checkin)}"),
+          Text("Checkin: ${DDMMYY.format(_control.aluguel.checkout)}"),
           Text("Hóspedes: ${_control.aluguel.totalHospedes}"),
           Text("Valor: ${_control.aluguel.valor}"),
           Text(
@@ -63,7 +64,7 @@ class AluguelReview extends StatelessWidget {
           Text("Forma: ${_control.aluguel.forma}"),
           _control.aluguel.observacao == null
               ? Container()
-              : Text("Forma: ${_control.aluguel.observacao}"),
+              : Text("Observação: ${_control.aluguel.observacao}"),
         ],
       ),
     );

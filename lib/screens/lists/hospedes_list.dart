@@ -26,7 +26,8 @@ class _HospedesListState extends State<HospedesList> {
                 child: ListTile(
                   title: Text(hospedes[index].nome),
                   onTap: () => widget._control
-                      .openReviewScreen(context, hospedes[index]),
+                      .openReviewScreen(context, hospedes[index])
+                      .then((value) => setState(() {})),
                 ),
               );
             },

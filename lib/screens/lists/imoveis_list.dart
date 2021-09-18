@@ -25,8 +25,9 @@ class _ImoveisListState extends State<ImoveisList> {
               return Card(
                 child: ListTile(
                   title: Text(imoveis[index].local),
-                  onTap: () =>
-                      widget._control.openReviewScreen(context, imoveis[index]),
+                  onTap: () => widget._control
+                      .openReviewScreen(context, imoveis[index])
+                      .then((value) => setState(() {})),
                 ),
               );
             },

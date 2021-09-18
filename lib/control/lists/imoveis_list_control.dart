@@ -7,10 +7,12 @@ class ImoveisListControl {
   final service = ImovelService();
 
   Future<List<Imovel>> getAll() async {
-    return await service.getAll();
+    List<Imovel>imoveis = await service.getAll();
+    imoveis.sort((a, b)=>a.local.compareTo(b.local));
+    return imoveis;
   }
 
-  openReviewScreen(BuildContext context, Imovel imovel) {
-    Navigator.pushNamed(context, '/review/imovel', arguments: imovel);
+  Future openReviewScreen(BuildContext context, Imovel imovel) async {
+    await Navigator.pushNamed(context, '/review/imovel', arguments: imovel);
   }
 }

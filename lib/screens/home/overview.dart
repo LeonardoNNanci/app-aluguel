@@ -22,14 +22,14 @@ class Overview extends StatelessWidget {
             future: _control.getFutureAlugueis(),
             onSuccess: (context, alugueis) {
               if (alugueis.isEmpty) return Container();
-              return alugueisFuturos(context, alugueis, textTheme);
+              return alugueisFuturos(context, alugueis, textTheme, _control);
             },
           ),
           CustomFutureBuilder(
             future: _control.getOnGoingAlugueis(),
             onSuccess: (context, alugueis) {
               if (alugueis.isEmpty) return Container();
-              return alugueisAndamento(context, alugueis, textTheme);
+              return alugueisAndamento(context, alugueis, textTheme, _control);
             },
           ),
         ],
@@ -37,8 +37,8 @@ class Overview extends StatelessWidget {
     );
   }
 
-  Widget alugueisAndamento(
-      BuildContext context, List alugueis, TextTheme textTheme) {
+  Widget alugueisAndamento(BuildContext context, List alugueis,
+      TextTheme textTheme, OverviewControl control) {
     return Container(
       child: Column(
         children: [
@@ -51,18 +51,11 @@ class Overview extends StatelessWidget {
             margin: EdgeInsets.symmetric(vertical: 8),
             child: ListView.builder(
               itemBuilder: (context, index) {
-                final local = alugueis[index]['imovel'].local;
-                final hospede = alugueis[index]['hospede'].nome;
-                final periodo = DDMMYY
-                        .format(alugueis[index]['aluguel'].checkin) +
-                    " - " +
-                    DDMMYY.format(alugueis[index]['aluguel'].checkout);
                 return AluguelCard(
                   index: 0,
-                  local: local,
-                  nomeHospede: hospede,
-                  periodo: periodo,
+                  aluguel: alugueis[index],
                   color: Theme.of(context).primaryColor,
+                  control: control,
                 );
               },
               itemCount: alugueis.length,
@@ -74,8 +67,8 @@ class Overview extends StatelessWidget {
     );
   }
 
-  Widget alugueisFuturos(
-      BuildContext context, List alugueis, TextTheme textTheme) {
+  Widget alugueisFuturos(BuildContext context, List alugueis,
+      TextTheme textTheme, OverviewControl control) {
     return Container(
       child: Column(
         children: [
@@ -88,18 +81,12 @@ class Overview extends StatelessWidget {
             margin: EdgeInsets.symmetric(vertical: 8),
             child: ListView.builder(
               itemBuilder: (context, index) {
-                final local = alugueis[index]['imovel'].local;
-                final hospede = alugueis[index]['hospede'].nome;
-                final periodo = DDMMYY
-                        .format(alugueis[index]['aluguel'].checkin) +
-                    " - " +
-                    DDMMYY.format(alugueis[index]['aluguel'].checkout);
                 return AluguelCard(
-                    index: index + 1,
-                    local: local,
-                    nomeHospede: hospede,
-                    periodo: periodo,
-                    color: Theme.of(context).accentColor);
+                  index: index + 1,
+                  aluguel: alugueis[index],
+                  color: Theme.of(context).accentColor,
+                  control: control,
+                );
               },
               itemCount: alugueis.length,
               scrollDirection: Axis.horizontal,
@@ -114,23 +101,26 @@ class Overview extends StatelessWidget {
 class AluguelCard extends StatelessWidget {
   final BuildContext context;
   final int index;
-  final String local;
-  final String nomeHospede;
-  final String periodo;
+  final Map<String, dynamic> aluguel;
   final MaterialColor color;
+  final OverviewControl control;
 
   const AluguelCard(
       {Key key,
       this.context,
       this.index,
-      this.local,
-      this.nomeHospede,
-      this.periodo,
-      this.color})
+      this.color,
+      this.aluguel,
+      this.control})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final local = aluguel['imovel'].local;
+    final hospede = aluguel['hospede'].nome;
+    final periodo = DDMMYY.format(aluguel['aluguel'].checkin) +
+        " - " +
+        DDMMYY.format(aluguel['aluguel'].checkout);
     return Padding(
       padding: const EdgeInsets.only(right: 8.0),
       child: Container(
@@ -150,13 +140,14 @@ class AluguelCard extends StatelessWidget {
                     local,
                     style: Theme.of(context).textTheme.headline5,
                   ),
-                  Text(nomeHospede),
+                  Text(hospede),
                   Text(periodo),
                 ],
               ),
             ),
           ),
-          onTap: () {},
+          onTap: () => control.openAluguelScreen(
+              context, "/review/aluguel", aluguel["aluguel"]),
         ),
       ),
     );

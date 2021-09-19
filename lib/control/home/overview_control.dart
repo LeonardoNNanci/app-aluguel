@@ -1,4 +1,6 @@
+import 'package:aluguel/models/aluguel.dart';
 import 'package:aluguel/service/aluguel_service.dart';
+import 'package:flutter/material.dart';
 
 class OverviewControl {
   final AluguelService _aluguelService = AluguelService();
@@ -36,6 +38,10 @@ class OverviewControl {
     _sort(ans, true);
 
     return ans;
+  }
+
+  Future openAluguelScreen(BuildContext context, String route, Aluguel aluguel) async {
+    await Navigator.pushNamed(context, route, arguments: aluguel);
   }
 
   List<Map<String, dynamic>> _sort(List<Map<String, dynamic>> l, bool reverse) {

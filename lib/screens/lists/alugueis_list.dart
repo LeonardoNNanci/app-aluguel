@@ -27,9 +27,9 @@ class _AlugueisListState extends State<AlugueisList> {
                 child: ListTile(
                   title: Text('${alugueis[index]["imovel"].local} - '
                       '${alugueis[index]["hospede"].nome}'),
-                  subtitle:
-                      Text('${DDMMYY.format(alugueis[index]["aluguel"].checkin)} - '
-                          '${DDMMYY.format(alugueis[index]["aluguel"].checkout)}'),
+                  subtitle: Text(
+                      '${DDMMYY.format(alugueis[index]["aluguel"].checkin)} - '
+                      '${DDMMYY.format(alugueis[index]["aluguel"].checkout)}'),
                   onTap: () => _control
                       .openReviewScreen(context, alugueis[index]["aluguel"])
                       .then((value) => setState(() {})),

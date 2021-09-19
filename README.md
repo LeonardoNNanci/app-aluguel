@@ -6,5 +6,6 @@ Estou utilizando este projeto como forma de aprender Flutter e desenvolvimento m
 
 ### Funcionalidades
 - Lista de tarefas
+- CRUD de imóveis, hóspedes, aluguéis e despesas.
 
 
